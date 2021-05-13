@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+	<head>
+		<meta charset="UTF-8">
+		<title>Hello World!</title>
+		<link rel="stylesheet" href="./style.css">
+	</head>
+	<body>
+		<div class="toolbar"><button>x</button><button>x</button><button>x</button></div>
+		<div class="base">
+			<div class="servers">
+				<div class="logo"></div>
+				<div class="servers-list"></div>
+				<div class="extra">+</div>
+				<div class="extra">-</div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-title">SERVER NAME</div>
+				<div class="sidebar-channels"></div>
+			</div>
+			<div class="chat">
+				<div class="chat-title"></div>
+				<div class="chat-messages"></div>
+				<div class="chat-input">
+					<div class="input-wrapper">
+						<button class="input-attachment-btn">+</button><textarea id="chat-textarea"></textarea><button>+</button><button>+</button><button>=)</button>
+					</div>
+				</div>
+				<div class="chat-users"></div>
+			</div>
+		</div>
+		<script src="./renderer.js"></script>
+		<script src="./renderDummyObjects.js"></script>
+		<script>
+			let chatTextarea = document.getElementById('chat-textarea');
+			document.addEventListener('keypress', (ev) => {
+				if (ev.key === 'Enter' && ev.target === chatTextarea && !ev.shiftKey && ev.target.selectionEnd === ev.target.value.length) {
+					ev.preventDefault();
+					ev.target.value = '';
+					console.log('SEND MESSAGE');
+				};
+			});
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+			document.querySelector('.sidebar-channels').addEventListener('click', (ev) => {
+				if (ev.target.dataset.channelid) {
+					document.querySelectorAll('.sidebar-channels details ul li > div').forEach(el => el.classList.remove('active'));
+					ev.target.classList.add('active');
+				};
+			});
+
+		</script>
+	</body>
 </html>
