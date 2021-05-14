@@ -314,12 +314,68 @@
 			},
 		],
 
+
+		messages: [
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'red',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'lcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeW',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'red',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'blue',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'lcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeW',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'yellowgreen',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+
+		],
+
 	};
 	
 	renderServers(dummyObjects.servers);
 	renderChannels(dummyObjects.chatChannels);
 	renderUsers(dummyObjects.usersCategories);
+	renderMessages(dummyObjects.messages);
 	
+
+	function renderMessages(messages) {
+		let html = '';
+		messages.forEach(message => {
+
+			html += `<div class="message">
+			<div class="author-avatar" style="background-image: url(${message.avatarUrl});"></div>
+				<div class="message-info">
+					<div class="author-name" style="color: ${message.nameColor};">${message.authorName}<span class="message-date">${message.date}</span></div>
+					<div class="message-body">${message.message}</div>
+				</div>
+			</div>`;
+		});
+		document.querySelector('.chat-messages').innerHTML = html;
+	};
 	
 	function renderChannels(chatChannels) {
 		let nextChannelId = 1;
