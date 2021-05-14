@@ -92,7 +92,8 @@
 			}
 
 			function sendMessage(e) {
-				let msg = e.trim();
+				let msg = escapeHtml(e.trim());
+				if (!msg) return;
 				let html = `<div class="message">
 								<div class="author-avatar" style="background-image: url(https://i.imgur.com/s1v5ic2.png);"></div>
 								<div class="message-info">
@@ -101,6 +102,10 @@
 								</div>
 							</div>`;
 				document.querySelector('.chat-messages').insertAdjacentHTML('afterbegin', html)
+			};
+
+			function escapeHtml(e) {
+				return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 			};
 
 		</script>
