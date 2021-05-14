@@ -2,9 +2,9 @@
 	let dummyObjects = {
 		servers: [
 			{ imgUrl: 'https://i.imgur.com/4TVKK4E.png' },
-			{ imgUrl: '' },
+			{ imgUrl: 'https://i.imgur.com/EKxAKBv.png' },
 			{ imgUrl: 'https://i.imgur.com/Kp3Ka5W.jpg' },
-			{ imgUrl: '' },
+			{ imgUrl: 'https://i.imgur.com/AFuCIlv.png' },
 		],
 	
 		chatChannels: [
@@ -72,6 +72,7 @@
 				]
 			},
 		],
+
 	};
 	
 	renderServers(dummyObjects.servers);
@@ -83,14 +84,14 @@
 		chatChannels.forEach(x => {
 			if (x.type === 'category') {
 				html += '<details open>';
-				html += `<summary>${x.name}</summary><ul>`;
+				html += `<summary>${x.name}</summary>`;
 				x.channels.forEach(q => {
-					html += `<li><div data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}</div></li>`;
+					html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}</div>`;
 				});
-				html += '</ul></details>';
+				html += '</details>';
 			};
 		});
-		document.querySelector('.sidebar-channels').innerHTML = html;
+		document.querySelector('.channels').innerHTML = html;
 	};
 	
 	function renderServers(servers) {
@@ -102,7 +103,7 @@
 			};						
 			html += '</div>';
 		});
-		document.querySelector('.servers .servers-list').innerHTML = html;
+		document.querySelector('.servers-list').innerHTML = html;
 	};
 
 })();

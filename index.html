@@ -4,47 +4,49 @@
 		<meta charset="UTF-8">
 		<title>Hello World!</title>
 		<link rel="stylesheet" href="./style.css">
+		<style>
+			
+
+		</style>
 	</head>
 	<body>
-		<div class="toolbar"><button>x</button><button>x</button><button>x</button></div>
-		<div class="base">
-			<div class="servers">
+			
+		<div class="wrapper">
+			<div class="toolbar"></div>
+			<div class="sidebar">
 				<div class="logo"></div>
 				<div class="servers-list"></div>
 				<div class="extra">+</div>
 				<div class="extra">-</div>
 			</div>
-			<div class="sidebar">
-				<div class="sidebar-title">SERVER NAME</div>
-				<div class="sidebar-channels"></div>
-			</div>
-			<div class="chat">
-				<div class="chat-title"></div>
-				<div class="chat-messages"></div>
-				<div class="chat-input">
-					<div class="input-wrapper">
-						<button class="input-attachment-btn">+</button><textarea id="chat-textarea"></textarea><button>+</button><button>+</button><button>=)</button>
-					</div>
+			<div class="server-panel"></div>
+			<div class="channels"></div>
+			<div class="profile-panel"></div>
+			<div class="channel-title"></div>
+			<div class="chat-messages"></div>
+			<div class="chat-inputs">
+				<div class="input-wrapper">
+					<button class="input-attachment-btn">+</button><textarea id="chat-textarea" placeholder="Message #welcome"></textarea><button>+</button><button>+</button><button>=)</button>
 				</div>
-				<div class="chat-users"></div>
 			</div>
+			<div class="users-list"></div>
 		</div>
 		<script src="./renderer.js"></script>
 		<script src="./renderDummyObjects.js"></script>
 		<script>
+			document.querySelector('.channels').addEventListener('click', (ev) => {
+				if (ev.target.dataset.channelid) {
+					document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
+					ev.target.classList.add('active');
+				};
+			});
+
 			let chatTextarea = document.getElementById('chat-textarea');
 			document.addEventListener('keypress', (ev) => {
 				if (ev.key === 'Enter' && ev.target === chatTextarea && !ev.shiftKey && ev.target.selectionEnd === ev.target.value.length) {
 					ev.preventDefault();
 					ev.target.value = '';
 					console.log('SEND MESSAGE');
-				};
-			});
-
-			document.querySelector('.sidebar-channels').addEventListener('click', (ev) => {
-				if (ev.target.dataset.channelid) {
-					document.querySelectorAll('.sidebar-channels details ul li > div').forEach(el => el.classList.remove('active'));
-					ev.target.classList.add('active');
 				};
 			});
 

@@ -1,29 +1,70 @@
-* { padding: 0; margin: 0; box-sizing: border-box;}
-.base {
-	padding-top: 30px;
-	min-height: 100vh;
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.wrapper {
+	background-color: rgb(139, 137, 155);
 	display: grid;
+	height: 100vh;
+	width: 100vw;
 	grid-template-areas: 
-		"servers-list sidebar chat";
-	grid-template-columns: 80px 250px 1fr;
-}
-.toolbar {
-	position: absolute;
-	height: 30px;
-	width: 100%;
-	background-color: black;
-	padding: 3px;
-}
-.servers {
-	position: relative;
-	grid-area: servers-list;
-	background-color: #2e2e2e;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+		'toolbar toolbar toolbar toolbar'
+		'sidebar server-panel channel-title channel-title'
+		'sidebar channels chat-messages users-list'
+		'sidebar channels chat-messages users-list'
+		'sidebar channels chat-inputs users-list'
+		'sidebar profile-panel chat-inputs users-list';
+	grid-template-columns: 80px 285px 1fr 320px;
+	grid-template-rows: 20px 70px 1fr 1fr 50px 80px;
+	overflow: auto;
 }
 
-.servers > .logo, .servers .server, .servers > .extra {
+.toolbar {
+	grid-area: toolbar;
+	background-color: aquamarine;
+}
+.sidebar {
+	grid-area: sidebar;
+	background-color: rgba(0,0,0,.9);
+}
+.server-panel {
+	grid-area: server-panel;
+	background-color: rgba(0,0,0,.7);
+	border-bottom: 1px solid black;
+}
+.channels {
+	grid-area: channels;
+	background-color: rgba(0,0,0,.7);
+	overflow-y: scroll;
+}
+.profile-panel {
+	grid-area: profile-panel;
+	background-color: rgba(0,0,0,.8);
+}
+.channel-title {
+	grid-area: channel-title;
+	background-color: rgba(0,0,0,.5);
+	border-bottom: 1px solid black;
+}
+.chat-messages {
+	grid-area: chat-messages;
+	background-color: rgba(0,0,0,.5);
+	overflow-y: scroll;
+}
+.chat-inputs {
+	grid-area: chat-inputs;
+	background-color: rgba(0,0,0,.5);
+	border-top: 1px solid #fff;
+}
+.users-list {
+	grid-area: users-list;
+	background-color: rgba(0,0,0,.7);
+	overflow-y: scroll;
+}
+
+.logo {
+	background-image: url(https://i.imgur.com/JwTJomX.png?1);
+	background-position: center center;
+	background-size: contain;
+}
+.sidebar .logo, .sidebar .extra, .sidebar .server {
 	width: 60px;
 	height: 60px;
 	display: flex;
@@ -33,161 +74,99 @@
 	background-color: rgb(0, 0, 0);
 	border-radius: 50%;
 	overflow: hidden;
+	color: yellowgreen;
 }
 
-.servers > .logo {
-	background-image: url(https://i.imgur.com/JwTJomX.png?1);
-	background-position: center center;
-	background-size: contain;
+.channels > details > div {
+	margin-left: 20px;
 }
-
-.servers > .extra {
-	background-color: rgb(0, 0, 0);
-	color: greenyellow;
-}
-
-.servers > .server {
-
-}
-
-.servers .server > img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-.servers .server:hover {
-	border-radius: 30%;
-}
-
-.sidebar {
-	display: flex;
-	flex-direction: column;
-	grid-area: sidebar;
-	background-color: #3a3a3a;
-	color: #979797;
-}
-.sidebar > .sidebar-title {
-	border-bottom: 1px solid black;
-	height: 50px;
-}
-
-.sidebar > .sidebar-channels {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	width: 100%;
-	flex-grow: 1;
-}
-
-.sidebar > .sidebar-channels > details {
-	margin: 12px 0;
+.channels > details > summary {
+	margin: 15px 5px;
 	cursor: pointer;
 }
-.sidebar > .sidebar-channels > details > summary {
-	margin: 10px 3px;
-}
 
-.sidebar > .sidebar-channels > details > ul {
+.channels {
 	color: rgb(201, 201, 201);
-	list-style-type: none;
-	
-}
-.sidebar > .sidebar-channels > details > ul li {
-	width: 100%;
-	position: relative;
-	margin: 8px 0;
 	font-size: 1.3em;
 }
-
-.sidebar > .sidebar-channels > details > ul li > div {
+.channel {
 	padding: 7px;
-	margin: 9px 9px 9px 9px;
+	margin: 3px 9px 3px 9px;
 	border-radius: 5px;
 	white-space: nowrap;
+	cursor: pointer;
+	position: relative;
 }
-
-.sidebar > .sidebar-channels > details > ul li > div.active {
-	background-color: rgb(122, 122, 122);
+.channel:hover, .channel.active {
+	background-color: rgba(122, 122, 122, .3);
 }
-
-.sidebar > .sidebar-channels > details > ul li:hover > div {
-	background-color: rgb(122, 122, 122);
-}
-
-.sidebar > .sidebar-channels > details > ul li.hasmentions {
+.channel.hasmetions {
 	font-weight: bold;
 	color: #fff;
 }
 
-.sidebar > .sidebar-channels > details > ul li.hasmentions::before {
+.channels .channel.hasmentions::before {
 	border-left: 2px solid yellow;
 	height: 100%;
 	display: block;
 	z-index: 999;
 	position: absolute;
 	content: '';
-	left: 0px;
+	right: 0px;
 	top: 0px;
 	overflow:visible;
 }
 
-.chat {
-	grid-area: chat;
-	display: grid;
-	grid-template-areas: 
-		"chat-title chat-title"
-		"chat-messages chat-users"
-		"chat-input chat-users";
-	grid-template-rows: 50px 1fr auto;	
-	grid-template-columns: 1fr 300px;
+.users-list .user {
+	display: flex;
+	color:rgb(255, 255, 255);
+	align-items: center;
+	margin: 4px 9px;
+	border-radius: 5px;
+	padding: 5px;
+	cursor: pointer;
 }
-.chat > .chat-title {
-	grid-area: chat-title;
-	background-color: #696969;
-	border-bottom: 1px solid black;
+
+.users-list .user:hover {
+	background-color: rgba(255, 255, 255, .2);
 }
-.chat > .chat-input {
-	grid-area: chat-input;
-	min-width: 0;
-	min-height: 0;
-	max-height: 50vh;
-	background-color: #696969;
-	border-top: 1px solid rgb(207, 207, 207);
+
+.users-list .user .user-avatar {
+	width: 42px;
+	height: 42px;
+	margin: 0 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
-.chat > .chat-input > .input-wrapper {
+
+.users-list .user .user-name-wrapper > div {
+	white-space: nowrap;
+	overflow: hidden;
+	width: 220px;
+}
+
+
+.chat-inputs > .input-wrapper {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: rgb(179, 179, 179);
+	background-color: rgba(179, 179, 179, .5);
 	margin: 10px;
-	padding: 4px 	10px;
+	padding: 4px 10px;
 	border-radius: 10px;
 }
-.chat > .chat-input > .input-wrapper > textarea {
+
+.input-wrapper > textarea {
 	width: 100%;
-	padding: 10px;
-	margin: 10px;
-	border: none;
-	font-size: 1.5em;
-	resize: none;
 	height: 42px;
-	max-height: 40vh;
-	background-color: rgb(179, 179, 179);
-}
-.input-attachment-btn {
 	padding: 10px;
-	margin: 10px;
-	background-color: transparent;
+	margin: 7px;
 	border: none;
-	border-right: 1px solid #fff;;
-}
-.chat > .chat-messages {
-	grid-area: chat-messages;
-	overflow-y: scroll;
-	min-height: 0;
-	background-color: #696969;
-}
-.chat > .chat-users {
-	grid-area: chat-users;
-	background-color: #383838;
-	overflow-y: scroll;
+	font-size: 1.3em;
+	resize: none;
+	max-height: 40vh;
+	background-color: transparent;
+	border-left: 1px solid rgb(146, 146, 146);
+	outline:0px none transparent;
 }
