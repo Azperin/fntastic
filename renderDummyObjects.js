@@ -218,7 +218,8 @@
 		usersCategories: [
 			{
 				name: 'B.O.T',
-				color: '',
+				color: '#21bf4b',
+				classNames: '',
 				users: [
 					{
 						name: 'Dank Memer',
@@ -228,7 +229,7 @@
 					},
 					{
 						name: 'GamesROB',
-						subtext: 'wdqwdqwd qwd qw',
+						subtext: 'playing <strong>wdqwdqwd qwd qw</strong>',
 						status: 'online',
 						bot: true,
 					},
@@ -255,6 +256,7 @@
 			{
 				name: 'THE MEMBERS',
 				color: 'orange',
+				classNames: '',
 				users: [
 					{
 						name: 'assley',
@@ -291,6 +293,7 @@
 			{
 				name: 'OFFLINE',
 				color: '',
+				classNames: 'offline',
 				users: [
 					{
 						name: 'arcticblaze7029',
@@ -322,6 +325,41 @@
 				nameColor: 'red',
 				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
 				message: 'lcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeWelcomeW',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
+			},
+			{
+				date: '11/11/1111',
+				authorName: 'Someone',
+				nameColor: 'orange',
+				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
+				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
 			},
 			{
 				date: '11/11/1111',
@@ -413,7 +451,7 @@
 			html += `<div class="users-category">${ category.name } - ${ category.users.length }</div>`;
 			
 			category.users.forEach(user => {
-				html += `<div class="user">
+				html += `<div class="user ${category.classNames}">
 					<div class="user-avatar" style="background-image: url(${ user.avatarUrl || 'https://i.imgur.com/s1v5ic2.png' });"></div>
 					<div class="user-name-wrapper">
 						<div class="user-name" style="color: ${category.color };">${ user.name }</div>
