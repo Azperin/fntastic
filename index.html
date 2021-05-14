@@ -5,19 +5,14 @@
 		<title>Fntastic</title>
 		<link rel="stylesheet" href="./style.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<style>
-			
-
-		</style>
 	</head>
 	<body>
 		<div class="wrapper" style="background-image: url(https://i.imgur.com/aQHoyBV.jpg);">
 			<div class="toolbar">
 				<div class="drag-region">&nbsp;</div>
-				<div><button class="btn"><span class="material-icons">minimize</span></button></div>
-				<div><button class="btn"><span class="material-icons">fullscreen</span></button></div>
-				<div><button class="btn"><span class="material-icons">fullscreen_exit</span></button></div>
-				<div><button class="btn"><span class="material-icons">close</span></button></div>
+				<div><button id="minimizeBtn" class="btn"><span class="material-icons">minimize</span></button></div>
+				<div><button id="fullscreenToggleBtn" class="btn"><span class="material-icons">fullscreen</span></button></div>
+				<div><button id="closeBtn" class="btn"><span class="material-icons">close</span></button></div>
 			</div>
 			<div class="sidebar noscrollbar">
 				<div class="logo"></div>
@@ -63,7 +58,6 @@
 			</div>
 			<div class="users-list noscrollbar"></div>
 		</div>
-		<script src="./renderer.js"></script>
 		
 		<script>
 			let chatMessagesElement = document.querySelector('.chat-messages');
@@ -123,8 +117,23 @@
 				chatMessagesElement.innerHTML = chatList[chatId] || '';
 			};
 
-		</script>
+			
+			// toolbar buttons
+			try {
+				let { ipcRenderer, ipcMain } = require('electron');
+				document.getElementById('closeBtn').addEventListener('click', () => {
+					ipcRenderer.send('closeApp');
+				});
+				document.getElementById('fullscreenToggleBtn').addEventListener('click', () => {
+					ipcRenderer.send('fsToggle');
+				});
+				document.getElementById('minimizeBtn').addEventListener('click', () => {
+					ipcRenderer.send('minimizeApp');
+				});
+			} catch(e) {}
 
+		</script>
+		<script src="./renderer.js"></script>
 		<script src="./renderDummyObjects.js"></script>
 	</body>
 </html>
