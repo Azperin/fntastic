@@ -17,8 +17,8 @@
 	grid-template-rows: 30px 70px 1fr 1fr 20px 70px;
 	overflow: auto;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
-	--sides-bg-color: rgba(14, 17, 39, 0.5);
-	--profile-bg-color: rgba(46, 48, 56, 0.9);
+	--sides-bg-color: rgba(20, 24, 51, 0.5);
+	--profile-bg-color: rgba(14, 17, 39, 0.7);
 }
 .noscrollbar {
 	-ms-overflow-style: none;
