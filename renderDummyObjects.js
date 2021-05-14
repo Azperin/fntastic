@@ -9,8 +9,19 @@
 	
 		chatChannels: [
 			{
+				type: 'text',
+				prefix: '#',
+				name: 'RAZ welcome'
+			},
+			{
+				type: 'text',
+				prefix: '#',
+				name: 'DVA welcome'
+			},
+			{
 				type: 'category',
 				name: 'DOORBELL',
+				isOpen: true,
 				channels: [
 					{
 						type: 'text',
@@ -22,11 +33,12 @@
 			{
 				type: 'category',
 				name: 'INFO',
+				isOpen: true,
 				channels: [
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'rules'
+						name: 'ruleddddddddddddddddddddddddddddddddddddds'
 					},
 					{
 						type: 'text',
@@ -53,6 +65,7 @@
 			{
 				type: 'category',
 				name: 'LOUNGES',
+				isOpen: true,
 				channels: [
 					{
 						type: 'text',
@@ -71,6 +84,135 @@
 					},
 				]
 			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback'
+					},
+				]
+			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback'
+					},
+				]
+			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback'
+					},
+				]
+			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal'
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback'
+					},
+				]
+			},
+
 		],
 
 		usersCategories: [
@@ -184,12 +326,14 @@
 		let html = '';
 		chatChannels.forEach(x => {
 			if (x.type === 'category') {
-				html += '<details open>';
-				html += `<summary>${x.name}</summary>`;
+				html += `<details ${x.isOpen ? 'open':''}><summary>${x.name}</summary>`;
 				x.channels.forEach(q => {
-					html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}</div>`;
+					html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 				});
 				html += '</details>';
+			};
+			if (x.type === 'text') {
+				html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ x.prefix } ${x.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 			};
 		});
 		document.querySelector('.channels').innerHTML = html;
