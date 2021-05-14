@@ -26,11 +26,14 @@ function createWindow () {
 		mainWindow.minimize();
 	});
 	ipcMain.on('fsToggle', () => {
-		if (mainWindow.isMaximized()) {
+		let maxFlag = mainWindow.isMaximized();
+		let webContentsMsg = mainWindow.isMaximized() ? 'maximized':'restored';
+		if (maxFlag) {
 			mainWindow.restore();
 		} else {
 			mainWindow.maximize();
 		};
+		mainWindow.webContents.send(webContentsMsg)
 	});
 	
 }

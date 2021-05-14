@@ -11,7 +11,7 @@
 			<div class="toolbar">
 				<div class="drag-region">&nbsp;</div>
 				<div><button id="minimizeBtn" class="btn"><span class="material-icons">minimize</span></button></div>
-				<div><button id="fullscreenToggleBtn" class="btn"><span class="material-icons">fullscreen</span></button></div>
+				<div><button id="fullscreenToggleBtn" class="btn"><span class="material-icons">fullscreen_exit</span></button></div>
 				<div><button id="closeBtn" class="btn"><span class="material-icons">close</span></button></div>
 			</div>
 			<div class="sidebar noscrollbar">
@@ -120,7 +120,8 @@
 			
 			// toolbar buttons
 			try {
-				let { ipcRenderer, ipcMain } = require('electron');
+				let { ipcRenderer } = require('electron');
+				let fsToggleBtnIcon = document.querySelector('#fullscreenToggleBtn .material-icons');
 				document.getElementById('closeBtn').addEventListener('click', () => {
 					ipcRenderer.send('closeApp');
 				});
@@ -129,6 +130,12 @@
 				});
 				document.getElementById('minimizeBtn').addEventListener('click', () => {
 					ipcRenderer.send('minimizeApp');
+				});
+				ipcRenderer.on('maximized', () => {
+					fsToggleBtnIcon.innerHTML = 'fullscreen';
+				});
+				ipcRenderer.on('restored', () => {
+					fsToggleBtnIcon.innerHTML = 'fullscreen_exit';
 				});
 			} catch(e) {}
 
