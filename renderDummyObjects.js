@@ -73,10 +73,111 @@
 			},
 		],
 
+		usersCategories: [
+			{
+				name: 'B.O.T',
+				color: '',
+				users: [
+					{
+						name: 'Dank Memer',
+						subtext: 'qwdqwdqwd qwd qwd',
+						status: 'online',
+						bot: true,
+					},
+					{
+						name: 'GamesROB',
+						subtext: 'wdqwdqwd qwd qw',
+						status: 'online',
+						bot: true,
+					},
+					{
+						name: 'GiveawayBOT',
+						subtext: 'wdqwdqwd qwd qw',
+						status: 'online',
+						bot: true,
+					},
+					{
+						name: 'MEE6',
+						subtext: 'wdqwdqwd qwd qw',
+						status: 'online',
+						bot: true,
+					},
+					{
+						name: 'Welcomer',
+						subtext: 'wdqwdqwd qwd qw',
+						status: 'online',
+						bot: true,
+					},
+				],
+			},
+			{
+				name: 'THE MEMBERS',
+				color: 'orange',
+				users: [
+					{
+						name: 'assley',
+						subtext: '',
+						status: 'dnd',
+						bot: false,
+					},
+					{
+						name: 'Austin',
+						subtext: '',
+						status: 'dnd',
+						bot: false,
+					},
+					{
+						name: 'LingLingPhoenix',
+						subtext: '',
+						status: 'dnd',
+						bot: false,
+					},
+					{
+						name: 'LOA4D.com',
+						subtext: '',
+						status: 'dnd',
+						bot: false,
+					},
+					{
+						name: 'person',
+						subtext: '',
+						status: 'dnd',
+						bot: false,
+					},
+				],
+			},
+			{
+				name: 'OFFLINE',
+				color: '',
+				users: [
+					{
+						name: 'arcticblaze7029',
+						subtext: '',
+						status: '',
+						bot: false,
+					},
+					{
+						name: 'Baking_Soda',
+						subtext: '',
+						status: '',
+						bot: false,
+					},
+					{
+						name: 'bucKet',
+						subtext: '',
+						status: '',
+						bot: false,
+					},
+				],
+			},
+		],
+
 	};
 	
 	renderServers(dummyObjects.servers);
 	renderChannels(dummyObjects.chatChannels);
+	renderUsers(dummyObjects.usersCategories);
+	
 	
 	function renderChannels(chatChannels) {
 		let nextChannelId = 1;
@@ -104,6 +205,24 @@
 			html += '</div>';
 		});
 		document.querySelector('.servers-list').innerHTML = html;
+	};
+
+	function renderUsers(usersCategories) {
+		let html = '';
+		usersCategories.forEach(category => {
+			html += `<div class="users-category">${ category.name } - ${ category.users.length }</div>`;
+			
+			category.users.forEach(user => {
+				html += `<div class="user">
+					<div class="user-avatar" style="background-image: url(${ user.avatarUrl || 'https://i.imgur.com/s1v5ic2.png' });"></div>
+					<div class="user-name-wrapper">
+						<div class="user-name" style="color: ${category.color };">${ user.name }</div>
+						<div class="user-subtext">${ user.subtext }</div>
+					</div>
+				</div>`;
+			});
+		});
+		document.querySelector('.users-list').innerHTML = html;
 	};
 
 })();
