@@ -85,7 +85,18 @@ button.btn {
 	-webkit-user-select: none;
 	color: rgb(201, 201, 201);
 	font-size: 1.1em;
+	position: relative;
 }
+
+.channels::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: .134;
+	background-image: url(https://i.imgur.com/flVjaLd.png);
+}
+
 .profile-panel {
 	grid-area: profile-panel;
 	background-color: var(--profile-bg-color);
@@ -273,28 +284,20 @@ button.btn {
 	white-space: nowrap;
 	cursor: pointer;
 	position: relative;
+	
 }
 
 .channel:hover, .channel.active {
 	background-color: rgba(122, 122, 122, .3);
 }
 
-.channel.hasmetions {
+.channel.hasnewcontent {
 	font-weight: bold;
 	color: #fff;
+	background: linear-gradient(95deg, rgba(152,158,5,0.3477591720281863) 0%, rgba(4,48,77,0) 100%);
 }
 
-.channels .channel.hasmentions::before {
-	border-left: 2px solid yellow;
-	height: 100%;
-	display: block;
-	z-index: 999;
-	position: absolute;
-	content: '';
-	right: 0px;
-	top: 0px;
-	overflow:visible;
-}
+
 
 .users-list .user {
 	display: flex;

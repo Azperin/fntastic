@@ -63,6 +63,8 @@
 		<script>
 			let chatMessagesElement = document.querySelector('.chat-messages');
 			let chatTextareaElement = document.getElementById('chat-textarea');
+			let channelTitleName = document.querySelector('.channel-title .channel-name');
+			let channelTitleDescription = document.querySelector('.channel-title .channel-name .channel-description');
 			let currentActiveChatId = '1';
 			let chatList = {};
 
@@ -71,6 +73,7 @@
 				if (!chatId) return;
 				document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
 				ev.target.classList.add('active');
+				ev.target.classList.remove('hasnewcontent');
 				if (currentActiveChatId !== chatId) {
 					switchChat(chatId);
 				};
@@ -104,7 +107,7 @@
 									<div class="message-body">${msg}</div>
 								</div>
 							</div>`;
-				chatList[currentActiveChatId] = html + chatList[currentActiveChatId];
+				chatList[currentActiveChatId].html = html + chatList[currentActiveChatId].html;
 				chatMessagesElement.insertAdjacentHTML('afterbegin', html)
 			};
 
@@ -115,7 +118,8 @@
 			function switchChat(chatId) {
 				if (!chatId) return;
 				currentActiveChatId = chatId;
-				chatMessagesElement.innerHTML = chatList[chatId] || '';
+				channelTitleName.innerHTML = `${chatList[chatId].name }<div class="channel-description">${chatList[chatId].description}</div>`;
+				chatMessagesElement.innerHTML = chatList[chatId].html || '';
 			};
 
 			

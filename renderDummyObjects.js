@@ -12,11 +12,13 @@
 				type: 'text',
 				prefix: '#',
 				name: 'RAZ welcome',
+				description: 'dqwd qwd qwd qwd qwd wq',
 			},
 			{
 				type: 'text',
 				prefix: '#',
 				name: 'DVA welcome',
+				description: 'dqwd qwd qwd qwd qwd wq',
 			},
 			{
 				type: 'category',
@@ -27,6 +29,7 @@
 						type: 'text',
 						prefix: '#',
 						name: 'welcome',
+						description: 'dqwd qwd qwd qwd qwd wq',
 					}
 				]
 			},
@@ -402,8 +405,7 @@
 	renderChannels(dummyObjects.chatChannels);
 	renderUsers(dummyObjects.usersCategories);
 	renderMessages(dummyObjects.messages);
-	
-	
+	switchChat('1');
 
 	function renderMessages(messages) {
 		let html = '';
@@ -417,7 +419,7 @@
 			</div>`;
 		});
 		document.querySelector('.chat-messages').innerHTML = html;
-		chatList['1'] = html;
+		chatList['1'].html = html;
 	};
 	
 	function renderChannels(chatChannels) {
@@ -427,13 +429,21 @@
 			if (x.type === 'category') {
 				html += `<details ${x.isOpen ? 'open':''}><summary>${x.name}</summary>`;
 				x.channels.forEach(q => {
-					chatList[nextChannelId] = '';
-					html += `<div class="channel ${ nextChannelId === 1 ? 'active':'' }" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
+					chatList[nextChannelId] = {
+						name: q.name,
+						description: q.description || '',
+						html: ''
+					};
+					html += `<div class="channel ${ nextChannelId === 1 ? 'active':'' } hasnewcontent" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 				});
 				html += '</details>';
 			};
 			if (x.type === 'text') {
-				chatList[nextChannelId] = '';
+				chatList[nextChannelId] = {
+					name: x.name,
+					description: x.description || '',
+					html: ''
+				};
 				html += `<div class="channel ${ nextChannelId === 1 ? 'active':'' }" data-channelId="${ nextChannelId++ }">${ x.prefix } ${x.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 			};
 		});
