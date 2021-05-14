@@ -222,6 +222,12 @@
 				classNames: '',
 				users: [
 					{
+						name: 'MemerMemerMemerMemerMemerMemerMemerMemerMemerMemerMemerMemerMemerMemerMemer',
+						subtext: 'qwdqwdqwd qwd qwd',
+						status: 'online',
+						bot: true,
+					},
+					{
 						name: 'Dank Memer',
 						subtext: 'qwdqwdqwd qwd qwd',
 						status: 'online',
@@ -452,7 +458,7 @@
 			html += `<div class="users-category">${ category.name } - ${ category.users.length }</div>`;
 			
 			category.users.forEach(user => {
-				html += `<div class="user ${category.classNames}">
+				html += `<div class="user ${category.classNames} ${user.bot ? 'bot' : '' }">
 					<div class="user-avatar" style="background-image: url(${ user.avatarUrl || 'https://i.imgur.com/s1v5ic2.png' });"><div class="online-status ${user.status}">&nbsp;</div></div>
 					<div class="user-name-wrapper">
 						<div class="user-name" style="color: ${category.color };">${ user.name }</div>

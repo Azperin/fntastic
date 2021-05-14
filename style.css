@@ -318,6 +318,24 @@ button.btn {
 .users-list .user:hover {
 	background-color: rgba(255, 255, 255, .2);
 }
+.users-list .user .user-name {
+	font-size: 1.2em;
+	width: 260px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.users-list .user.bot .user-name:before {
+	content: 'BOT';
+	background-color: rgb(87, 131, 226);
+	color: #fff;
+	left: 0;
+	margin-right: 6px;
+	padding: 3px;
+	font-size: .7em;
+	height: 36px;
+	border-radius: 4px;
+}
 
 .users-list .user .user-avatar {
 	width: 40px;
@@ -351,7 +369,6 @@ button.btn {
 
 .users-list .user .user-name-wrapper > div {
 	white-space: nowrap;
-	overflow: hidden;
 }
 
 .user .user-subtext {
@@ -359,9 +376,7 @@ button.btn {
 	color: rgb(145, 145, 145);
 }
 
-.user .user-name {
-	font-size: 1.2em;
-}
+
 
 .chat-inputs > .input-wrapper {
 	display: flex;
