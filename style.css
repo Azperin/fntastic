@@ -1,6 +1,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
 .wrapper {
-	background-color: rgb(139, 137, 155);
+	background-color: rgb(27, 27, 27);
+	color:rgb(177, 177, 177);
 	display: grid;
 	height: 100vh;
 	width: 100vw;
@@ -11,9 +13,12 @@
 		'sidebar channels chat-messages users-list'
 		'sidebar channels chat-inputs users-list'
 		'sidebar profile-panel chat-inputs users-list';
-	grid-template-columns: 80px 285px 1fr 350px;
-	grid-template-rows: 20px 70px 1fr 1fr 50px 80px;
+	grid-template-columns: 80px 300px 1fr 350px;
+	grid-template-rows: 30px 70px 1fr 1fr 20px 70px;
 	overflow: auto;
+	--main-bg-color: rgba(34, 36, 48, 0.867);
+	--sides-bg-color: rgba(14, 17, 39, 0.5);
+	--profile-bg-color: rgba(46, 48, 56, 0.9);
 }
 .noscrollbar {
 	-ms-overflow-style: none;
@@ -27,11 +32,13 @@ button.btn {
 	background-color: transparent;
 	border: none;
 	color: #fff;
+	cursor: pointer;
+	outline: none;
 }
 
 .toolbar {
 	grid-area: toolbar;
-	background-color: aquamarine;
+	background-color: rgba(0,0,0,.9);
 }
 .sidebar {
 	grid-area: sidebar;
@@ -39,7 +46,7 @@ button.btn {
 }
 .server-panel {
 	grid-area: server-panel;
-	background-color: rgba(0,0,0,.7);
+	background-color: var(--sides-bg-color);
 	border-bottom: 1px solid black;
 	display: flex;
 	align-items: center;
@@ -47,19 +54,27 @@ button.btn {
 	font-size: 1.3em;
 	justify-content: space-between;
 	padding: 10px 40px 10px 10px;
+	-webkit-border-top-left-radius: 9px;
+	-moz-border-radius-topleft: 9px;
+	border-top-left-radius: 9px;
 }
 .channels {
 	grid-area: channels;
-	background-color: rgba(0,0,0,.7);
+	background-color: var(--sides-bg-color);
 	overflow-y: scroll;
 }
 .profile-panel {
 	grid-area: profile-panel;
-	background-color: rgba(0,0,0,.8);
+	background-color: var(--profile-bg-color);
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
 }
+
 .channel-title {
 	grid-area: channel-title;
-	background-color: rgba(0,0,0,.5);
+	background-color: var(--main-bg-color);
 	border-bottom: 1px solid black;
 	display: flex;
 	align-items: center;
@@ -67,20 +82,76 @@ button.btn {
 	justify-content: center;
 
 }
+
 .chat-messages {
 	grid-area: chat-messages;
-	background-color: rgba(0,0,0,.5);
+	background-color: var(--main-bg-color);
 	overflow-y: scroll;
+	padding: 10px;
+	border-bottom:  1px solid rgb(77, 77, 77);
+	
 }
+
+.chat-messages::-webkit-scrollbar {
+	width: 8px;
+	background-color: var(--main-bg-color);
+	background: linear-gradient(95deg, rgba(1,8,65,0.89) 0%, rgba(4,48,77,0.46) 100%);
+}
+
 .chat-inputs {
 	grid-area: chat-inputs;
-	background-color: rgba(0,0,0,.5);
-	border-top: 1px solid #fff;
+	background-color: var(--main-bg-color);
 }
 .users-list {
 	grid-area: users-list;
-	background-color: rgba(0,0,0,.7);
+	background-color: var(--sides-bg-color);
 	overflow-y: scroll;
+	background: linear-gradient(95deg, rgba(14,17,39,0.7903362028405112) 0%, rgba(4,48,77,0.7063025893951331) 100%);
+}
+
+.profile-panel .profile-info {
+	display: flex;
+	flex-wrap: wrap;
+	flex-grow: 1;
+}
+
+.profile-panel .btn {
+	padding: 4px;
+	margin: 4px;
+	border-radius: 4px;
+}
+
+.profile-panel .btn:hover {
+	background-color: rgba(122, 122, 122, .3);
+}
+
+.profile-panel .btn .material-icons {
+	color:rgb(145, 145, 145)
+}
+
+.profile-panel .avatar {
+	min-width: 40px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 10px;
+	background-position: center center;
+	background-size: cover;
+	overflow: hidden;
+}
+
+.profile-panel  .profile-info .profile-name {
+	color: #fff;
+	font-size: 1.2em;
+	flex-grow: 1;
+	width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.profile-panel  .profile-info .profile-discriminator {
+	color: rgb(139, 139, 139);
+	font-size: .9em;
+	width: 100%;
 }
 
 .logo {
@@ -99,6 +170,7 @@ button.btn {
 	background-color: rgb(0, 0, 0);
 	border-radius: 50%;
 	overflow: hidden;
+	border: 1px dashed rgb(32, 66, 55);
 	color: yellowgreen;
 }
 
@@ -208,7 +280,7 @@ button.btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: rgba(179, 179, 179, .5);
+	background-color: rgba(78, 78, 78, 0.7);
 	margin: 10px;
 	padding: 4px 10px;
 	border-radius: 10px;
@@ -222,9 +294,10 @@ button.btn {
 	border: none;
 	font-size: 1.3em;
 	resize: none;
+	color:rgb(221, 221, 221);
 	max-height: 40vh;
 	background-color: transparent;
-	border-left: 1px solid rgb(146, 146, 146);
+	border-left: 1px solid rgb(163, 163, 163);
 	outline:0px none transparent;
 }
 
