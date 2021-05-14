@@ -13,6 +13,7 @@
 	<body>
 		<div class="wrapper" style="background-image: url(https://i.imgur.com/aQHoyBV.jpg);">
 			<div class="toolbar">
+				<div class="drag-region">&nbsp;</div>
 				<div><button class="btn"><span class="material-icons">minimize</span></button></div>
 				<div><button class="btn"><span class="material-icons">fullscreen</span></button></div>
 				<div><button class="btn"><span class="material-icons">fullscreen_exit</span></button></div>
@@ -96,7 +97,7 @@
 
 			function adjustTextarea(len) {
 				chatTextareaElement.style.height = `${27 * len}px`;
-			}
+			};
 
 			function sendMessage(e) {
 				let msg = escapeHtml(e.trim());
