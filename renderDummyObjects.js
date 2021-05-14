@@ -11,12 +11,12 @@
 			{
 				type: 'text',
 				prefix: '#',
-				name: 'RAZ welcome'
+				name: 'RAZ welcome',
 			},
 			{
 				type: 'text',
 				prefix: '#',
-				name: 'DVA welcome'
+				name: 'DVA welcome',
 			},
 			{
 				type: 'category',
@@ -26,7 +26,7 @@
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'welcome'
+						name: 'welcome',
 					}
 				]
 			},
@@ -38,27 +38,27 @@
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+						name: 'ruleddddddddddddddddddddddddddddddddddddds',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'hello-goodbye'
+						name: 'hello-goodbye',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'announcements'
+						name: 'announcements',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'portal'
+						name: 'portal',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'feedback'
+						name: 'feedback',
 					},
 				]
 			},
@@ -70,49 +70,17 @@
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'zone-1'
+						name: 'zone-1',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'zone-2'
+						name: 'zone-2',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'gamerz'
-					},
-				]
-			},
-			{
-				type: 'category',
-				name: 'INFO',
-				isOpen: false,
-				channels: [
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'ruleddddddddddddddddddddddddddddddddddddds'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'hello-goodbye'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'announcements'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'portal'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'feedback'
+						name: 'gamerz',
 					},
 				]
 			},
@@ -124,59 +92,27 @@
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+						name: 'ruleddddddddddddddddddddddddddddddddddddds',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'hello-goodbye'
+						name: 'hello-goodbye',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'announcements'
+						name: 'announcements',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'portal'
+						name: 'portal',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'feedback'
-					},
-				]
-			},
-			{
-				type: 'category',
-				name: 'INFO',
-				isOpen: false,
-				channels: [
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'ruleddddddddddddddddddddddddddddddddddddds'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'hello-goodbye'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'announcements'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'portal'
-					},
-					{
-						type: 'text',
-						prefix: '#',
-						name: 'feedback'
+						name: 'feedback',
 					},
 				]
 			},
@@ -188,27 +124,91 @@
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'ruleddddddddddddddddddddddddddddddddddddds'
+						name: 'ruleddddddddddddddddddddddddddddddddddddds',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'hello-goodbye'
+						name: 'hello-goodbye',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'announcements'
+						name: 'announcements',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'portal'
+						name: 'portal',
 					},
 					{
 						type: 'text',
 						prefix: '#',
-						name: 'feedback'
+						name: 'feedback',
+					},
+				]
+			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback',
+					},
+				]
+			},
+			{
+				type: 'category',
+				name: 'INFO',
+				isOpen: false,
+				channels: [
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'ruleddddddddddddddddddddddddddddddddddddds',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'hello-goodbye',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'announcements',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'portal',
+					},
+					{
+						type: 'text',
+						prefix: '#',
+						name: 'feedback',
 					},
 				]
 			},
@@ -317,7 +317,6 @@
 			},
 		],
 
-
 		messages: [
 			{
 				date: '11/11/1111',
@@ -389,7 +388,6 @@
 				avatarUrl: 'https://i.imgur.com/s1v5ic2.png',
 				message: 'Welcome to the Game Center<br>The staff hopes you enjoy your stay here',
 			},
-
 		],
 
 	};
@@ -403,7 +401,6 @@
 	function renderMessages(messages) {
 		let html = '';
 		messages.forEach(message => {
-
 			html += `<div class="message">
 			<div class="author-avatar" style="background-image: url(${message.avatarUrl});"></div>
 				<div class="message-info">
@@ -413,6 +410,7 @@
 			</div>`;
 		});
 		document.querySelector('.chat-messages').innerHTML = html;
+		chatList['1'] = html;
 	};
 	
 	function renderChannels(chatChannels) {
@@ -422,11 +420,13 @@
 			if (x.type === 'category') {
 				html += `<details ${x.isOpen ? 'open':''}><summary>${x.name}</summary>`;
 				x.channels.forEach(q => {
+					chatList[nextChannelId] = '';
 					html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 				});
 				html += '</details>';
 			};
 			if (x.type === 'text') {
+				chatList[nextChannelId] = '';
 				html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ x.prefix } ${x.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 			};
 		});

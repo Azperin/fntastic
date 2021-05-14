@@ -63,18 +63,25 @@
 			<div class="users-list noscrollbar"></div>
 		</div>
 		<script src="./renderer.js"></script>
-		<script src="./renderDummyObjects.js"></script>
+		
 		<script>
+			let chatMessagesElement = document.querySelector('.chat-messages');
+			let chatTextareaElement = document.getElementById('chat-textarea');
+			let currentActiveChatId = '1';
+			let chatList = {};
+
 			document.querySelector('.channels').addEventListener('click', (ev) => {
-				if (ev.target.dataset.channelid) {
-					document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
-					ev.target.classList.add('active');
+				let chatId = ev.target.dataset.channelid;
+				if (!chatId) return;
+				document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
+				ev.target.classList.add('active');
+				if (currentActiveChatId !== chatId) {
+					switchChat(chatId);
 				};
 			});
 
-			let chatTextarea = document.getElementById('chat-textarea');
 			document.addEventListener('keypress', (ev) => {
-				if (ev.key === 'Enter' && ev.target === chatTextarea && !ev.shiftKey && ev.target.selectionEnd === ev.target.value.length) {
+				if (ev.key === 'Enter' && ev.target === chatTextareaElement && !ev.shiftKey && ev.target.selectionEnd === ev.target.value.length) {
 					adjustTextarea(0);
 					console.log('SEND MESSAGE');
 					sendMessage(ev.target.value);
@@ -83,17 +90,17 @@
 				};
 			});
 
-			chatTextarea.addEventListener('input', (e) => {
+			chatTextareaElement.addEventListener('input', (e) => {
 				adjustTextarea(e.target.value.split('\n').length);
 			});
 
 			function adjustTextarea(len) {
-				chatTextarea.style.height = `${27 * len}px`;
+				chatTextareaElement.style.height = `${27 * len}px`;
 			}
 
 			function sendMessage(e) {
 				let msg = escapeHtml(e.trim());
-				if (!msg) return;
+				if (!msg || !currentActiveChatId) return;
 				let html = `<div class="message">
 								<div class="author-avatar" style="background-image: url(https://i.imgur.com/s1v5ic2.png);"></div>
 								<div class="message-info">
@@ -101,13 +108,22 @@
 									<div class="message-body">${msg}</div>
 								</div>
 							</div>`;
-				document.querySelector('.chat-messages').insertAdjacentHTML('afterbegin', html)
+				chatList[currentActiveChatId] = html + chatList[currentActiveChatId];
+				chatMessagesElement.insertAdjacentHTML('afterbegin', html)
 			};
 
 			function escapeHtml(e) {
 				return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 			};
 
+			function switchChat(chatId) {
+				if (!chatId) return;
+				currentActiveChatId = chatId;
+				chatMessagesElement.innerHTML = chatList[chatId] || '';
+			};
+
 		</script>
+
+		<script src="./renderDummyObjects.js"></script>
 	</body>
 </html>
