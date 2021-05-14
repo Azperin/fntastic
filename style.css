@@ -121,7 +121,7 @@ button.btn {
 }
 .chat-messages:after {
 	content: ' ';
-	min-height: 200vh;
+	height: 200vh;
 }
 
 .chat-messages::-webkit-scrollbar {
