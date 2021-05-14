@@ -17,7 +17,7 @@
 		'sidebar channels chat-inputs users-list'
 		'sidebar profile-panel chat-inputs users-list';
 	grid-template-columns: 80px 300px 1fr 350px;
-	grid-template-rows: 30px 70px 1fr 1fr 20px 70px;
+	grid-template-rows: 30px 70px 1fr minmax(1fr,100px) 20px 70px;
 	overflow: auto;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
 	--sides-bg-color: rgba(20, 24, 51, 0.5);
@@ -42,6 +42,8 @@ button.btn {
 .toolbar {
 	grid-area: toolbar;
 	background-color: rgba(0,0,0,.9);
+	display: flex;
+	justify-content: right;
 }
 .sidebar {
 	grid-area: sidebar;
@@ -93,7 +95,7 @@ button.btn {
 	padding: 10px;
 	border-bottom:  1px solid rgb(77, 77, 77);
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -105,11 +107,20 @@ button.btn {
 	grid-area: chat-inputs;
 	background-color: var(--main-bg-color);
 }
+
 .users-list {
 	grid-area: users-list;
 	background-color: var(--sides-bg-color);
 	overflow-y: scroll;
 	background: linear-gradient(95deg, rgba(14,17,39,0.7903362028405112) 0%, rgba(4,48,77,0.7063025893951331) 100%);
+}
+
+.toolbar .btn {
+	margin-left: 10px;
+	padding: 2px 20px;
+}
+.toolbar .btn:hover {
+	background-color: rgba(180, 180, 180, .3);
 }
 
 .profile-panel .profile-info {
@@ -151,13 +162,14 @@ button.btn {
 	white-space: nowrap;
 	overflow: hidden;
 }
+
 .profile-panel  .profile-info .profile-discriminator {
 	color: rgb(139, 139, 139);
 	font-size: .9em;
 	width: 100%;
 }
 
-.logo {
+.sidebar .logo {
 	background-image: url(https://i.imgur.com/JwTJomX.png?1);
 	background-position: center center;
 	background-size: contain;
@@ -297,10 +309,12 @@ button.btn {
 	white-space: nowrap;
 	overflow: hidden;
 }
+
 .user .user-subtext {
 	font-size: .9em;
 	color: rgb(145, 145, 145);
 }
+
 .user .user-name {
 	font-size: 1.2em;
 }
@@ -317,14 +331,15 @@ button.btn {
 
 .chat-inputs .input-wrapper > textarea {
 	width: 100%;
-	height: 42px;
-	padding: 10px;
+	min-height: 36px;
+	height: 36px;
+	max-height: 40vh;
+	padding: 5px;
 	margin: 7px;
 	border: none;
-	font-size: 1.3em;
+	font-size: 1.4em;
 	resize: none;
 	color:rgb(221, 221, 221);
-	max-height: 40vh;
 	background-color: transparent;
 	border-left: 1px solid rgb(163, 163, 163);
 	outline:0px none transparent;
@@ -366,15 +381,12 @@ button.btn {
 
 .chat-messages .message .message-info .message-body {
 	margin-top: 6px;
+	white-space:pre-wrap;
 	overflow-wrap: break-word;
 	word-wrap: break-all;	
 	width:100%;
 	
 }
-
-
-
-
 
 .channel-title .channel-name {
 	flex-grow: 1;
@@ -388,6 +400,7 @@ button.btn {
 	flex-wrap: nowrap;
 	align-items: center;
 }
+
 .channel-title .channel-utils .searchBar {
 	display: flex;
 	align-items: center;
@@ -396,6 +409,7 @@ button.btn {
 	background-color: rgba(0,0,0,.8);
 	padding: 0 10px 0 5px;
 }
+
 .channel-title .channel-utils .searchBar input {
 	color:rgb(180, 180, 180);
 	font-size: 1.3em;

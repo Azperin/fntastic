@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Hello World!</title>
+		<title>Fntastic</title>
 		<link rel="stylesheet" href="./style.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<style>
@@ -12,7 +12,12 @@
 	</head>
 	<body>
 		<div class="wrapper" style="background-image: url(https://i.imgur.com/aQHoyBV.jpg);">
-			<div class="toolbar"></div>
+			<div class="toolbar">
+				<div><button class="btn"><span class="material-icons">minimize</span></button></div>
+				<div><button class="btn"><span class="material-icons">fullscreen</span></button></div>
+				<div><button class="btn"><span class="material-icons">fullscreen_exit</span></button></div>
+				<div><button class="btn"><span class="material-icons">close</span></button></div>
+			</div>
 			<div class="sidebar noscrollbar">
 				<div class="logo"></div>
 				<div class="servers-list"></div>
@@ -45,11 +50,7 @@
 					<div><button class="btn"><span class="material-icons">help</span></button></div>
 				</div>
 			</div>
-
-			<div class="chat-messages">
-			</div>
-
-
+			<div class="chat-messages"></div>
 			<div class="chat-inputs">
 				<div class="input-wrapper">
 					<button class="btn input-attachment-btn"><span class="material-icons md-24">add_circle</span></button>
@@ -74,11 +75,33 @@
 			let chatTextarea = document.getElementById('chat-textarea');
 			document.addEventListener('keypress', (ev) => {
 				if (ev.key === 'Enter' && ev.target === chatTextarea && !ev.shiftKey && ev.target.selectionEnd === ev.target.value.length) {
+					adjustTextarea(0);
+					console.log('SEND MESSAGE');
+					sendMessage(ev.target.value);
 					ev.preventDefault();
 					ev.target.value = '';
-					console.log('SEND MESSAGE');
 				};
 			});
+
+			chatTextarea.addEventListener('input', (e) => {
+				adjustTextarea(e.target.value.split('\n').length);
+			});
+
+			function adjustTextarea(len) {
+				chatTextarea.style.height = `${27 * len}px`;
+			}
+
+			function sendMessage(e) {
+				let msg = e.trim();
+				let html = `<div class="message">
+								<div class="author-avatar" style="background-image: url(https://i.imgur.com/s1v5ic2.png);"></div>
+								<div class="message-info">
+									<div class="author-name" style="color: #${Math.floor(Math.random()*16777215).toString(16)};">Fntastic<span class="message-date">${new Date()}</span></div>
+									<div class="message-body">${msg}</div>
+								</div>
+							</div>`;
+				document.querySelector('.chat-messages').insertAdjacentHTML('afterbegin', html)
+			};
 
 		</script>
 	</body>
