@@ -189,6 +189,7 @@ button.btn {
 	width: 100px;
 	white-space: nowrap;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .profile-panel  .profile-info .profile-discriminator {
@@ -376,8 +377,6 @@ button.btn {
 	color: rgb(145, 145, 145);
 }
 
-
-
 .chat-inputs > .input-wrapper {
 	display: flex;
 	align-items: center;
@@ -462,11 +461,22 @@ button.btn {
 	
 }
 
+.channel-title .channel-type {
+	font-size: 1.9em;
+	color:rgb(163, 163, 163);
+	margin-left: 20px;
+}
+
 .channel-title .channel-name {
 	flex-grow: 1;
 	margin: 0 20px;
 	color:rgb(255, 255, 255);
-	font-size: 1.4em;
+	font-size: 1.3em;
+}
+
+.channel-title .channel-name .channel-description {
+	font-size: .7em;
+	color:rgb(201, 201, 201);
 }
 
 .channel-title .channel-utils {
