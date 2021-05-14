@@ -326,6 +326,27 @@ button.btn {
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
+	position: relative;
+}
+
+.users-list .user:not(.offline) .user-avatar .online-status {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	right: 0;
+	bottom: 0;
+	border: 2px solid black;
+	border-radius: 50%;
+}
+
+.user-avatar .online-status.online {
+	background-color: green;
+}
+.user-avatar .online-status.dnd {
+	background-color: red;
+}
+.user-avatar .online-status.away {
+	background-color: yellow;
 }
 
 .users-list .user .user-name-wrapper > div {

@@ -242,7 +242,7 @@
 					{
 						name: 'MEE6',
 						subtext: 'wdqwdqwd qwd qw',
-						status: 'online',
+						status: 'dnd',
 						bot: true,
 					},
 					{
@@ -267,13 +267,13 @@
 					{
 						name: 'Austin',
 						subtext: '',
-						status: 'dnd',
+						status: 'away',
 						bot: false,
 					},
 					{
 						name: 'LingLingPhoenix',
 						subtext: '',
-						status: 'dnd',
+						status: 'online',
 						bot: false,
 					},
 					{
@@ -453,7 +453,7 @@
 			
 			category.users.forEach(user => {
 				html += `<div class="user ${category.classNames}">
-					<div class="user-avatar" style="background-image: url(${ user.avatarUrl || 'https://i.imgur.com/s1v5ic2.png' });"></div>
+					<div class="user-avatar" style="background-image: url(${ user.avatarUrl || 'https://i.imgur.com/s1v5ic2.png' });"><div class="online-status ${user.status}">&nbsp;</div></div>
 					<div class="user-name-wrapper">
 						<div class="user-name" style="color: ${category.color };">${ user.name }</div>
 						<div class="user-subtext">${ user.subtext }</div>
