@@ -83,6 +83,8 @@ button.btn {
 	overflow-y: scroll;
 	user-select: none;
 	-webkit-user-select: none;
+	color: rgb(201, 201, 201);
+	font-size: 1.1em;
 }
 .profile-panel {
 	grid-area: profile-panel;
@@ -258,14 +260,9 @@ button.btn {
 .channels .channel .channel-btn {
 	position: absolute;
 	right: 0;
-	top: 8px;
+	top: 5px;
 	display: none;
 	margin-right: 10px;
-}
-
-.channels {
-	color: rgb(201, 201, 201);
-	font-size: 1.3em;
 }
 
 .channel {
@@ -353,6 +350,21 @@ button.btn {
 	margin: 10px;
 	padding: 4px 10px;
 	border-radius: 10px;
+}
+
+.chat-inputs > .input-wrapper .btn {
+	margin: 5px 10px;
+	padding: 5px;
+	border-radius: 30%;
+}
+
+.chat-inputs > .input-wrapper .btn .material-icons {
+	color:rgba(122, 122, 122, .8);
+	font-size: 36px;
+}
+
+.chat-inputs > .input-wrapper .btn:hover {
+	background-color:rgba(177, 177, 177, .06);
 }
 
 .chat-inputs .input-wrapper > textarea {

@@ -397,6 +397,7 @@
 	renderUsers(dummyObjects.usersCategories);
 	renderMessages(dummyObjects.messages);
 	
+	
 
 	function renderMessages(messages) {
 		let html = '';
@@ -421,13 +422,13 @@
 				html += `<details ${x.isOpen ? 'open':''}><summary>${x.name}</summary>`;
 				x.channels.forEach(q => {
 					chatList[nextChannelId] = '';
-					html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
+					html += `<div class="channel ${ nextChannelId === 1 ? 'active':'' }" data-channelId="${ nextChannelId++ }">${ q.prefix } ${q.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 				});
 				html += '</details>';
 			};
 			if (x.type === 'text') {
 				chatList[nextChannelId] = '';
-				html += `<div class="channel" data-channelId="${ nextChannelId++ }">${ x.prefix } ${x.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
+				html += `<div class="channel ${ nextChannelId === 1 ? 'active':'' }" data-channelId="${ nextChannelId++ }">${ x.prefix } ${x.name}<div class="channel-btn"><button class="btn"><span class="material-icons">person_add</span></button></div></div>`;
 			};
 		});
 		document.querySelector('.channels').innerHTML = html;
