@@ -13,25 +13,15 @@
 	usersIds.push(DiscordApp.createUser(selfUser));
 
 	// Создаем рандомных юзеров
-	Array(Math.floor(20 + Math.random() * 150)).fill(0).forEach((x, i) => {
-		let username = Array(Math.floor(2 + Math.random() * 20)).fill('').reduce((x) => {
-			return x += symbols[Math.floor(Math.random() * symLen)];
-		}, '');
-		let subtext = Array(Math.floor(0 + Math.random() * 13)).fill('').reduce((x) => {
-			return x += symbols[Math.floor(Math.random() * symLen)];
-		}, '');
+	let userNames = Array(Math.floor(20 + Math.random() * 150)).fill('').map(x => {
+		return randomName(3, 20);
+	}).sort((a,b) => a.localeCompare(b, 'en', {'sensitivity': 'base'}));
 
+	userNames.forEach((username) => {
+		let subtext = randomName(0, 13);
 		let isBot = (Math.random() * 100 < 10);
 		let status = userStatuses[Math.floor(Math.random() * userStatuses.length)];
-
-		let user = {
-			name: username,
-			bot: isBot,
-			subtext: subtext,
-			status: status,
-		};
-		
-		let userId = DiscordApp.createUser(user);
+		let userId = DiscordApp.createUser({ name: username, bot: isBot, subtext: subtext, status: status,  });
 		usersIds.push(userId);
 	});
 
@@ -84,7 +74,6 @@
 	};
 	
 	DiscordApp.switchServer('1');
-
 
 	function randomName(min, max) {
 		let len = Math.floor(min + Math.random() * max);
