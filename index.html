@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<div class="wrapper" style="background-image: url(https://i.imgur.com/aQHoyBV.jpg);">
+			<div class="modal-user-card"><div class="modal-user-card-body"></div></div>
 			<div class="toolbar">
 				<div class="drag-region">&nbsp;</div>
 				<div><button id="minimizeBtn" class="btn"><span class="material-icons">minimize</span></button></div>
@@ -76,6 +77,28 @@
 				if (!servId) return;
 				DiscordApp.switchServer(servId);
 			});
+
+			document.querySelector('.users-list').addEventListener('click', (e) => {
+				let userId = e.target.dataset.userid;
+				if (!userId) return;
+				document.querySelector('.modal-user-card').style.display = 'block';
+				let userCardElement = document.querySelector('.modal-user-card-body');
+				let offsetTop = e.y;
+				console.log(e);
+				if ((offsetTop + 420) > window.innerHeight) {
+					offsetTop = window.innerHeight - 420;
+				};
+				userCardElement.style.left = `${ e.target.offsetLeft - 300 }px`;
+				userCardElement.style.top = `${ offsetTop }px`;
+				userCardElement.innerHTML = `<div><div class="user-card-avatar" style="background-image: url(${ DiscordApp.users[userId].avatarUrl })"></div></div>
+				<div class="user-card-name">${ DiscordApp.users[userId].name }</div>
+				<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+				`;
+			});
+
+			document.querySelector('.modal-user-card').addEventListener('click', (e) => {
+				e.target.style.display = 'none';
+			})
 
 			document.getElementById('chat-textarea').addEventListener('input', (e) => {
 				// пока что однострочные сообщения, в хроме обработка инпуттайпа странная

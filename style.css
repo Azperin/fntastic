@@ -262,7 +262,7 @@ button.btn {
 	height: 26px;
 	right: 0px;
 	bottom: 0px;
-	pointer-events:none;
+	pointer-events: none;
 }
 .sidebar .server .server-notification:empty {
 	display: none;
@@ -343,6 +343,55 @@ button.btn {
 	background: linear-gradient(95deg, rgba(152,158,5,0.3477591720281863) 0%, rgba(4,48,77,0) 100%);
 }
 
+.modal-user-card {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	z-index: 5000;
+	background-color: rgba(36, 46, 48, 0.6);
+	display: none;
+}
+.modal-user-card-body {
+	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	height: 400px;
+	padding: 20px;
+	z-index: 5001;
+	border-radius: 8px;
+	background-color: rgb(104, 104, 104);
+	background: linear-gradient(95deg, rgba(93,93,93,1) 0%, rgba(52,68,79,1) 100%);
+	pointer-events: none;
+	border: 1px solid rgb(249, 255, 218);
+}
+
+.user-card-name {
+	text-align: center;
+	word-wrap: break-all;
+	word-break: break-all;
+	color: rgb(204, 204, 204);
+	width: 100%;
+	font-size: 2em;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgba(255, 255, 255, .2);
+	text-shadow: 0px 0px 10px rgba(155, 182, 190, 0.6);
+}
+
+.user-card-avatar {
+	background-color: red;
+	width: 60px;
+	height: 60px;
+	margin: 0 10px;
+	border-radius: 50%;
+	z-index: 1;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
 .users-list .user {
 	display: flex;
 	color:rgb(255, 255, 255);
@@ -351,6 +400,12 @@ button.btn {
 	border-radius: 5px;
 	padding: 5px;
 	cursor: pointer;
+}
+
+
+
+.users-list .user > div {
+	pointer-events:none;
 }
 
 .users-list .user.offline {
