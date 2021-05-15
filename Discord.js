@@ -22,7 +22,8 @@ DISCORD.prototype.createServer = function({ ownerId, serverName = 'Discord New S
 		roles: {},
 		nextChannelId: 1,
 	};
-	this.windowElements['servers'].insertAdjacentHTML('beforeend',`<div class="server" data-serverid="${ serverId }" style="background-image: url(${logoUrl})"></div>`);
+	let notificationsAmount = Math.floor(Math.random() * 10);
+	this.windowElements['servers'].insertAdjacentHTML('beforeend',`<div class="server" data-serverid="${ serverId }" style="background-image: url(${logoUrl})"><span class="server-notification">${ notificationsAmount < 4 ? '' : notificationsAmount }</span></div>`);
 	return serverId;
 };
 

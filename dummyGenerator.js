@@ -36,7 +36,7 @@
 	});
 
 	// Создаем рандомные сервера (мы уже впринципе итак знаем что юзер с ИД 1 уже есть, поэтому он будет овнером у всех)
-	let serversAmount = Math.floor(2 + Math.random() * 7);
+	let serversAmount = Math.floor(3 + Math.random() * 7);
 
 	while(serversAmount--) {
 		let serverName = randomName(2, 20);
