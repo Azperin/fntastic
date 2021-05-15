@@ -281,10 +281,14 @@ button.btn {
 }
 
 .sidebar .server.active {
-	border-left: 2px solid rgba(248, 255, 148, 0.5);
-	-webkit-box-shadow: -16px 0px 7px -9px rgba(248, 255, 148, 0.5);
-	-moz-box-shadow: -16px 0px 7px -9px rgba(248, 255, 148, 0.5);
-	box-shadow: -16px 0px 7px -11px rgba(248, 255, 148, 0.5);
+	border: 0px solid rgba(248, 255, 148, 0.5);
+	-webkit-box-shadow: 0px 0px 8px 2px rgba(255, 180, 0, 0.5);
+	-moz-box-shadow: 0px 0px 8px 2px rgba(255, 180, 0, 0.5);
+	box-shadow: 0px 0px 8px 2px rgba(255, 180, 0, 0.5);
+}
+
+.sidebar .server:not(.active) {
+	opacity: .5;
 }
 
 .channels > details > summary::-webkit-marker {

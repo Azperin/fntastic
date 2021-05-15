@@ -112,13 +112,8 @@
 			});
 
 			document.querySelector('.profile-panel').addEventListener('click', (e) => {
-				if (e.target.dataset.profilemic) {
-					return DiscordApp.toggleProfileMic();
-				};
-
-				if (e.target.dataset.profileheadset) {
-					return DiscordApp.toggleProfileHeadset();
-				};
+				if (e.target.dataset.profilemic) return DiscordApp.toggleProfileMic();
+				if (e.target.dataset.profileheadset) return DiscordApp.toggleProfileHeadset();
 			});
 
 			// toolbar buttons
