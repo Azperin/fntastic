@@ -193,9 +193,9 @@ DISCORD.prototype.renderUserPanel = function() {
 					<div class="profile-name">${ user.name }</div>
 					<div class="profile-discriminator">#${ this.profile.userId }</div>
 				</div>
-				<div><button class="btn"><span class="material-icons">mic</span></button></div>
-				<div><button class="btn"><span class="material-icons">headphones</span></button></div>
-				<div><button class="btn"><span class="material-icons">settings</span></button></div>`;
+				<div><button class="btn profile-mic"><span class="material-icons" data-profilemic="1">mic</span></button></div>
+				<div><button class="btn profile-headset"><span class="material-icons" data-profileheadset="1">headphones</span></button></div>
+				<div><button class="btn profile-settings"><span class="material-icons">settings</span></button></div>`;
 };
 
 DISCORD.prototype.renderUsers = function() {
@@ -248,17 +248,6 @@ DISCORD.prototype.renderUsers = function() {
 	this.windowElements['users'].innerHTML = usersHtml;
 };
 
-DISCORD.prototype.profilePanelHTML = function(message) {
-	let author = this.users[message.author];
-	return `<div class="message">
-				<div class="author-avatar" style="background-image: url(${author.avatarUrl});"></div>
-					<div class="message-info">
-						<div class="author-name">${ author.name }<span class="message-date">${ message.date }</span></div>
-						<div class="message-body">${message.message}</div>
-					</div>
-				</div>`;
-};
-
 DISCORD.prototype.channelMessagesHTML = function(message) {
 	let author = this.users[message.author];
 
@@ -301,6 +290,16 @@ DISCORD.prototype.textChannelHTML = function(channelId, channelName, categoryId)
 					<button class="btn"><span class="material-icons">person_add</span></button>
 				</div>
 			</div>`;
+};
+
+DISCORD.prototype.toggleProfileMic = function() {
+	this.profile.mic = !this.profile.mic;
+	document.querySelector('.profile-mic .material-icons').innerHTML = this.profile.mic ? 'mic': 'mic_off';
+};
+
+DISCORD.prototype.toggleProfileHeadset = function() {
+	this.profile.headset = !this.profile.headset;
+	document.querySelector('.profile-headset .material-icons').innerHTML = this.profile.headset ? 'headset': 'headset_off';
 };
 
 DISCORD.prototype.init = function() {

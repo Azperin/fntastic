@@ -234,7 +234,7 @@ button.btn {
 	background-repeat: no-repeat;
 }
 
-.channels > details > summary::-webkit-details-marker {
+.channels > details > summary::-webkit-marker {
 	display: none;
 }
 
