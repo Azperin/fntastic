@@ -136,7 +136,12 @@ button.btn {
 
 .chat-messages::-webkit-scrollbar {
 	width: 8px;
+	height: 10px;
 	background-color: var(--main-bg-color);
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+	background-color: rgb(192, 190, 190);
 }
 
 .chat-inputs {
