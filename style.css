@@ -14,11 +14,10 @@
 		'sidebar server-panel channel-title channel-title'
 		'sidebar channels chat-messages users-list'
 		'sidebar channels chat-messages users-list'
-		'sidebar channels chat-inputs users-list'
-		'sidebar channels chat-inputs users-list'
+		'sidebar channels chat-messages users-list'
 		'sidebar profile-panel chat-inputs users-list';
 	grid-template-columns: 80px 300px 1fr 350px;
-	grid-template-rows: 30px 70px 1fr 1fr minmax(1fr,0px) 20px 70px;
+	grid-template-rows: 30px 70px 1fr 1fr 1fr 100px;
 	overflow: auto;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
 	--sides-bg-color: rgba(20, 24, 51, 0.5);
@@ -125,7 +124,6 @@ button.btn {
 	background-color: var(--main-bg-color);
 	overflow-y: scroll;
 	padding: 10px;
-	border-bottom:  1px solid rgb(77, 77, 77);
 	display: flex;
 	flex-direction: column-reverse;
 	height: 100%;
@@ -212,7 +210,7 @@ button.btn {
 .sidebar .logo {
 	background-image: url(https://i.imgur.com/JwTJomX.png?1);
 	background-position: center center;
-	background-size: contain;
+	background-size: cover;
 }
 
 .sidebar .logo, .sidebar .extra, .sidebar .server {
@@ -227,6 +225,13 @@ button.btn {
 	overflow: hidden;
 	border: 1px dashed rgb(32, 66, 55);
 	color: yellowgreen;
+	cursor: pointer;
+}
+
+.sidebar .server {
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .channels > details > summary::-webkit-details-marker {
@@ -313,7 +318,7 @@ button.btn {
 	opacity: .5;
 }
 
-.users-list .users-category {
+.users-list .users-group {
 	color:rgb(145, 145, 145);
 	padding: 10px;
 	margin: 20px 2px 0px 9px;
@@ -345,6 +350,8 @@ button.btn {
 	width: 40px;
 	height: 40px;
 	margin: 0 10px;
+	border-radius: 50%;
+	z-index: 1;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -357,6 +364,7 @@ button.btn {
 	height: 15px;
 	right: 0;
 	bottom: 0;
+	z-index: 2;
 	border: 2px solid black;
 	border-radius: 50%;
 }
@@ -418,7 +426,6 @@ button.btn {
 	color:rgb(221, 221, 221);
 	background-color: transparent;
 	border-left: 1px solid rgb(163, 163, 163);
-	outline:0px none transparent;
 }
 
 .chat-messages .message {

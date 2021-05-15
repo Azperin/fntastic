@@ -1,0 +1,319 @@
+const DISCORD = function() {
+	this.windowElements = {};
+	this.profile = {
+		userId: '',
+		currentServerId: '',
+		currentChannelId: '',
+		mic: true,
+		headset: true,
+	};
+	this.servers = {};
+	this.users = {};
+};
+
+DISCORD.prototype.createServer = function({ ownerId, serverName = 'Discord New Server', logoUrl }) {
+	let serverId = Object.keys(this.servers).length + 1;
+	this.servers[serverId] = {
+		owner: ownerId,
+		name: serverName,
+		logoUrl: logoUrl,
+		channels: {},
+		users: {},
+		roles: {},
+		nextChannelId: 1,
+	};
+	this.windowElements['servers'].insertAdjacentHTML('beforeend',`<div class="server" data-serverid="${ serverId }" style="background-image: url(${logoUrl})"></div>`);
+	return serverId;
+};
+
+DISCORD.prototype.createRole = function({ serverId, roleName, color }) {
+	let nextRoleId = Object.keys(this.servers[serverId].roles).length + 1;
+	this.servers[serverId].roles[nextRoleId] = {
+		name: roleName,
+		color: color,
+	};
+	return nextRoleId;
+};
+
+DISCORD.prototype.createUser = function({ name = 'Discord New User', subtext = '' , avatarUrl = 'https://i.imgur.com/Lm8lqH6.jpg', bot = false, status = 'online' }) {
+	let userId = Object.keys(this.users).length + 1;
+	this.users[userId] = {
+		id: userId,
+		name,
+		avatarUrl,
+		status, // online, offline, away, dnd
+		bot,
+		subtext,
+		servers: new Set([]),
+	};
+
+	// делаем первого же юзера НЕ бота своим
+	if (!this.profile.userId && !bot) {
+		this.profile.userId = userId;
+		this.renderUserPanel();
+	};
+	return userId;
+};
+
+DISCORD.prototype.createTextChannel = function({ serverId, channelName, channelDescription = '', categoryId = null }) {
+	if (!this.servers.hasOwnProperty(serverId)) return;
+	let nextChannelId = this.servers[serverId].nextChannelId++;
+	let addPath = this.servers[serverId].channels;
+
+	if (categoryId) {
+		
+		let isCategory = this.servers[serverId].channels[categoryId]?.type === 'category';
+		if (isCategory) {
+			addPath = this.servers[serverId].channels[categoryId].channels;
+		};
+	};
+
+	addPath[nextChannelId] = {
+		type: 'text',
+		name: channelName,
+		description: channelDescription,
+		category: categoryId,
+		messages: [],
+	};
+	return nextChannelId;
+};
+
+DISCORD.prototype.createChannelCategory = function({ serverId, categoryName = 'New Category' }) {
+	if (!this.servers.hasOwnProperty(serverId)) return;
+	let nextChannelId = this.servers[serverId].nextChannelId++;
+	
+	this.servers[serverId].channels[nextChannelId] = {
+		type: 'category',
+		name: categoryName,
+		channels: {},
+	};
+	return nextChannelId;
+};
+
+DISCORD.prototype.addUserToServer = function({ serverId, userId, username = '' }) {
+	if (!this.servers.hasOwnProperty(serverId)) return;
+	if (!this.users.hasOwnProperty(userId)) return;
+	if (this.servers[serverId].users.hasOwnProperty(userId)) return;
+	this.users[userId].servers.add(serverId);
+	this.servers[serverId].users[userId] = {
+		username, // на разных серверах могут быть разные ники
+		role: '',
+	};
+};
+
+DISCORD.prototype.sendMessage = function({ serverId, channelId, categoryId = null, userId, message = '' }) {
+	if (!message) return;
+	if (!serverId) {
+		serverId = this.profile.currentServerId;
+	};
+	if (!channelId) {
+		channelId = this.profile.currentChannelId;
+	};
+	if (!userId) {
+		userId = this.profile.userId;
+	};
+	if (!this.servers.hasOwnProperty(serverId)) return;
+	if (!this.users.hasOwnProperty(userId)) return;
+	// поидее тут еще нужна проверка что ИД юзера это мы, но пока опустим такие детали
+	let channelPath = this.servers[serverId].channels[channelId];
+	if (categoryId) {
+		channelPath = this.servers[serverId].channels[categoryId].channels[channelId];
+	};
+	if (!channelPath) return;
+
+	let mIdx = channelPath.messages.push({
+		author: userId,
+		message: `${message}`,
+		date: new Date(),
+	}) - 1;
+
+	if (channelId === this.profile.currentChannelId) {
+		let messageHtml = this.channelMessagesHTML(this.servers[serverId].channels[channelId].messages[mIdx]);
+		this.windowElements['messages'].insertAdjacentHTML('afterbegin', messageHtml);
+	};
+};
+
+DISCORD.prototype.switchServer = function(serverId) {
+	if (this.profile.currentServerId === serverId) return;
+	if (!this.servers.hasOwnProperty(serverId)) return;
+
+	this.profile.currentServerId = serverId;
+	
+	// Рендерим каналы
+	let channelsHtml = '';
+	Object.entries(this.servers[serverId].channels).forEach(([id, channel]) => {
+		if (channel.type === 'text') {
+			channelsHtml += this.textChannelHTML(id, channel.name);
+		} else if (channel.type === 'category') {
+			channelsHtml += `<details><summary>${channel.name}</summary>`;
+			Object.entries(channel.channels).forEach(([subId, subChannel]) => {
+				channelsHtml += this.textChannelHTML(subId, subChannel.name, id);
+			});
+			channelsHtml += '</details>';
+		};
+	});
+	this.windowElements['channels'].innerHTML = channelsHtml;
+
+	document.querySelector('.server-panel .server-name').innerHTML = this.servers[serverId].name;
+	// Рендер юзеров зависит все же от сервера или канала ? пока будем думать что у всех юзеров есть доступ ко всем каналам и отрендерим здесь
+	this.renderUsers();
+};
+
+DISCORD.prototype.switchChannel = function(channelId, categoryId) {
+	let serverId = this.profile.currentServerId;
+	if (!this.servers.hasOwnProperty(serverId)) return;
+	let channel;
+	if (categoryId) {
+		channel = this.servers[serverId].channels[categoryId]?.channels[channelId];
+	} else {
+		channel = this.servers[serverId].channels[channelId];
+	};
+	if (!channel) return;
+	this.profile.currentChannelId = channelId;
+	// if (!this.servers[serverId].channels.hasOwnProperty)
+	let messagesHtml = '';
+	channel.messages.forEach(message => {
+		messagesHtml += this.channelMessagesHTML(message);
+	});
+
+	this.windowElements['messages'].innerHTML = messagesHtml;
+	document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
+	let channelElement = document.querySelector(`.channel[data-channelid="${channelId}"]`);
+	channelElement.classList.add('active');
+	channelElement.classList.remove('hasnewcontent');
+	document.querySelector('.channel-title .channel-name').innerHTML = `<div class="channel-name">${channel.name}<div class="channel-description">${channel.description}</div></div>`;
+	
+};
+
+DISCORD.prototype.renderUserPanel = function() {
+	if (!this.profile.userId) return;
+	let user = this.users[this.profile.userId];
+	this.windowElements['profilePanel'].innerHTML = `<div class="avatar" style="background-image: url(${ user.avatarUrl });"></div>
+				<div class="profile-info">
+					<div class="profile-name">${ user.name }</div>
+					<div class="profile-discriminator">#${ this.profile.userId }</div>
+				</div>
+				<div><button class="btn"><span class="material-icons">mic</span></button></div>
+				<div><button class="btn"><span class="material-icons">headphones</span></button></div>
+				<div><button class="btn"><span class="material-icons">settings</span></button></div>`;
+};
+
+DISCORD.prototype.renderUsers = function() {
+	// рандомим роли в зависимости от выбранного сервера
+	let serverId = this.profile.currentServerId;
+	let rolesToRender = {};
+	let roleIDs = Object.keys(this.servers[serverId].roles);
+	let offline = [];
+	let online = [];
+	let usersHtml = '';
+	Object.entries(this.users).forEach(([userId, user]) => {
+		if (user.status !== 'offline') {
+			let shouldUserGetRole = (Math.random() * 10) < 3;
+			if (shouldUserGetRole) {
+				let roleID = roleIDs[Math.floor(Math.random() * roleIDs.length)];
+				if (!rolesToRender[roleID]) {
+					rolesToRender[roleID] = [];
+				};
+				this.servers[serverId].users[userId].role = roleID;
+				rolesToRender[roleID].push(user);
+			} else {
+				online.push(user);
+			};
+		} else {
+			offline.push(user);
+		};
+	});
+
+	Object.entries(rolesToRender).forEach(([roleId, users]) => {
+		usersHtml += `<div class="users-group">${this.servers[serverId].roles[roleId].name} - ${ users.length }</div>`;
+		users.forEach(user => {
+			usersHtml += this.usersListHTML(user);
+		});
+	});
+
+	if (online.length > 0) {
+		usersHtml += `<div class="users-group">ONLINE - ${ online.length }</div>`;
+		online.forEach(user => {
+			usersHtml += this.usersListHTML(user);
+		});
+	};
+
+	if (offline.length > 0) {
+		usersHtml += `<div class="users-group">OFFLINE - ${ offline.length }</div>`;
+		offline.forEach(user => {
+			usersHtml += this.usersListHTML(user);
+		});
+	};
+
+	this.windowElements['users'].innerHTML = usersHtml;
+};
+
+DISCORD.prototype.profilePanelHTML = function(message) {
+	let author = this.users[message.author];
+	return `<div class="message">
+				<div class="author-avatar" style="background-image: url(${author.avatarUrl});"></div>
+					<div class="message-info">
+						<div class="author-name">${ author.name }<span class="message-date">${ message.date }</span></div>
+						<div class="message-body">${message.message}</div>
+					</div>
+				</div>`;
+};
+
+DISCORD.prototype.channelMessagesHTML = function(message) {
+	let author = this.users[message.author];
+
+	let userRole = this.servers[this.profile.currentServerId].users[message.author].role;
+	let userColor = '';
+	if (userRole) {
+		userColor = this.servers[this.profile.currentServerId].roles[userRole].color;
+	};
+
+	return `<div class="message">
+				<div class="author-avatar" style="background-image: url(${author.avatarUrl});"></div>
+					<div class="message-info">
+						<div class="author-name" style="color: #${userColor}">${ author.name }<span class="message-date">${ message.date }</span></div>
+						<div class="message-body">${message.message}</div>
+					</div>
+				</div>`;
+};
+
+DISCORD.prototype.usersListHTML = function(user) {
+	let userRole = this.servers[this.profile.currentServerId].users[user.id].role;
+	let userColor = '';
+	if (userRole) {
+		userColor = this.servers[this.profile.currentServerId].roles[userRole].color;
+	};
+
+	return `<div class="user ${user.status} ${user.bot ? 'bot' : '' }" data-userid="${user.id}">
+				<div class="user-avatar" style="background-image: url(${ user.avatarUrl });"><div class="online-status ${user.status}">&nbsp;</div></div>
+				<div class="user-name-wrapper">
+					<div class="user-name" style="color: #${userColor}">${ user.name }</div>
+					<div class="user-subtext">${ user.subtext }</div>
+				</div>
+			</div>`;
+};
+
+DISCORD.prototype.textChannelHTML = function(channelId, channelName, categoryId) {
+	let hasNewContent = (Math.random() * 10) < 3 ;
+	return `<div class="channel ${ hasNewContent ? 'hasnewcontent':''}" data-channelid="${ channelId }" data-categoryid="${ categoryId ?? '' }">
+				# ${ channelName }
+				<div class="channel-btn">
+					<button class="btn"><span class="material-icons">person_add</span></button>
+				</div>
+			</div>`;
+};
+
+DISCORD.prototype.init = function() {
+	// лучше бы по ИДшникам придумать
+	this.windowElements['servers'] = document.querySelector('.sidebar .servers-list');
+	this.windowElements['channels'] = document.querySelector('.channels');
+	this.windowElements['messages'] = document.querySelector('.chat-messages');
+	this.windowElements['profilePanel'] = document.querySelector('.profile-panel');
+	this.windowElements['users'] = document.querySelector('.users-list');
+};
+
+
+
+
+
+

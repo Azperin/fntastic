@@ -16,7 +16,7 @@ function createWindow () {
 
 	mainWindow.maximize();
 	mainWindow.loadFile('index.html');
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	ipcMain.on('closeApp', () => {
 		mainWindow.close();
@@ -43,7 +43,6 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
 	createWindow();
-
 	app.on('activate', function () {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
 	})
