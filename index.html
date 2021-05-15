@@ -84,7 +84,6 @@
 				if (!userId) return;
 				document.querySelector('.modal-user-card').style.display = 'block';
 				let offsetTop = e.y;
-				console.log(e);
 				if ((offsetTop + 420) > window.innerHeight) {
 					offsetTop = window.innerHeight - 420;
 				};
@@ -124,7 +123,6 @@
 					DiscordApp.searchUser(e.target.value.trim().toLowerCase());
 				}, 500);
 			});
-			
 
 			// toolbar buttons
 			try {
