@@ -155,8 +155,14 @@ DISCORD.prototype.switchServer = function(serverId) {
 	this.windowElements['channels'].innerHTML = channelsHtml;
 
 	document.querySelector('.server-panel .server-name').innerHTML = this.servers[serverId].name;
+
+	document.querySelectorAll('.server').forEach(el => el.classList.remove('active'));
+	document.querySelector(`.server[data-serverid="${ serverId }"]`).classList.add('active');
+
+
 	// Рендер юзеров зависит все же от сервера или канала ? пока будем думать что у всех юзеров есть доступ ко всем каналам и отрендерим здесь
 	this.renderUsers();
+	this.switchChannel('1');
 };
 
 DISCORD.prototype.switchChannel = function(channelId, categoryId) {

@@ -114,9 +114,10 @@ button.btn {
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
-	justify-content: center;
+	justify-content: flex-start;
 	user-select: none;
 	-webkit-user-select: none;
+	
 }
 
 .chat-messages {
@@ -223,7 +224,6 @@ button.btn {
 	background-color: rgb(0, 0, 0);
 	border-radius: 50%;
 	overflow: hidden;
-	border: 1px dashed rgb(32, 66, 55);
 	color: yellowgreen;
 	cursor: pointer;
 }
@@ -232,6 +232,13 @@ button.btn {
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;
+}
+
+.sidebar .server.active {
+	border-left: 4px solid red;
+	-webkit-box-shadow: -16px 0px 7px -9px rgba(255, 0, 0, 0.55);
+-moz-box-shadow: -16px 0px 7px -9px rgba(255, 0, 0, 0.55);
+box-shadow: -16px 0px 7px -9px rgba(255, 0, 0, 0.55);
 }
 
 .channels > details > summary::-webkit-marker {
@@ -301,8 +308,6 @@ button.btn {
 	color: #fff;
 	background: linear-gradient(95deg, rgba(152,158,5,0.3477591720281863) 0%, rgba(4,48,77,0) 100%);
 }
-
-
 
 .users-list .user {
 	display: flex;
@@ -487,6 +492,8 @@ button.btn {
 .channel-title .channel-name .channel-description {
 	font-size: .7em;
 	color:rgb(201, 201, 201);
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .channel-title .channel-utils {

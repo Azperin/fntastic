@@ -3,7 +3,7 @@
 	let userStatuses = ['online', 'offline', 'dnd', 'away'];
 	let serverIcons = ['https://i.imgur.com/KSmZysd.png', 'https://i.imgur.com/s0FCCQ7.png?1', 'https://i.imgur.com/AXqHw5N.png?1', 'https://i.imgur.com/gf2FpD0.jpg'];
 	// _.!?$
-	let symbols = 'abcdefghijklmnopqrstuvwxyz     -ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'.split('');
+	let symbols = 'abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'.split('');
 	let symLen = symbols.length;
 	let selfUser = {
 		name: 'Fntastic',
@@ -35,11 +35,10 @@
 		usersIds.push(userId);
 	});
 
-	
+	// Создаем рандомные сервера (мы уже впринципе итак знаем что юзер с ИД 1 уже есть, поэтому он будет овнером у всех)
+	let serversAmount = Math.floor(2 + Math.random() * 7);
 
-	// Создаем рандомные сервера (мы уже впринципе итак знаем что юзер с ИД 1 уже есть)
-	let servers = Array(Math.floor(2 + Math.random() * 7)).fill(0);
-	servers.forEach(() => {
+	while(serversAmount--) {
 		let serverName = randomName(2, 20);
 		let server = {
 			ownerId: '1',
@@ -82,21 +81,22 @@
 			};
 			createTextChannel(serverId);
 		};
-	});
+	};
 	
 	DiscordApp.switchServer('1');
-	DiscordApp.switchChannel('1');
 
 
 	function randomName(min, max) {
-		return Array(Math.floor(min + Math.random() * max)).fill('').reduce((x) => {
+		let len = Math.floor(min + Math.random() * max);
+		if (len === 0) return '';
+		return Array(len).fill('').reduce((x) => {
 			return x += symbols[Math.floor(Math.random() * symLen)]
 		});
 	};
 
 	function createTextChannel(serverId, categoryId) {
 		let channelName = randomName(3, 20);
-		let channelDescription = randomName(10, 80)
+		let channelDescription = randomName(0, 20)
 		let channel = {
 			serverId: serverId,
 			channelName: channelName,
