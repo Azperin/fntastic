@@ -224,8 +224,15 @@ button.btn {
 	background-color: rgb(0, 0, 0);
 	border-radius: 50%;
 	overflow: hidden;
-	color: yellowgreen;
 	cursor: pointer;
+}
+
+.sidebar .extra {
+	background-color: rgba(63, 63, 63, .6);
+	color: rgb(1, 150, 100);
+}
+.sidebar .extra .material-icons {
+	font-size: 2.1em;
 }
 
 .sidebar .server {
