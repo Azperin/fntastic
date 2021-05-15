@@ -160,6 +160,8 @@ DISCORD.prototype.switchServer = function(serverId) {
 	document.querySelectorAll('.server').forEach(el => el.classList.remove('active'));
 	document.querySelector(`.server[data-serverid="${ serverId }"]`).classList.add('active');
 
+	document.querySelector(`.server[data-serverid="${ serverId }"] .server-notification`).innerHTML = '';
+	
 
 	// Рендер юзеров зависит все же от сервера или канала ? пока будем думать что у всех юзеров есть доступ ко всем каналам и отрендерим здесь
 	this.renderUsers();
