@@ -283,7 +283,7 @@ DISCORD.prototype.usersListHTML = function(user) {
 				<div class="user-avatar" style="background-image: url(${ user.avatarUrl });"><div class="online-status ${user.status}">&nbsp;</div></div>
 				<div class="user-name-wrapper">
 					<div class="user-name" style="color: #${userColor}">${ user.name }</div>
-					<div class="user-subtext">${ user.subtext }</div>
+					<div class="user-subtext">${ user.status === 'offline' ? '': user.subtext }</div>
 				</div>
 			</div>`;
 };
