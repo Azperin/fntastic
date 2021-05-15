@@ -17,7 +17,7 @@
 		'sidebar channels chat-messages users-list'
 		'sidebar profile-panel chat-inputs users-list';
 	grid-template-columns: 80px 300px 1fr 350px;
-	grid-template-rows: 30px 70px 1fr 1fr 1fr 100px;
+	grid-template-rows: 30px 70px 1fr 1fr 1fr 90px;
 	overflow: auto;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
 	--sides-bg-color: rgba(20, 24, 51, 0.5);
