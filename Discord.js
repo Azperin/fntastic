@@ -125,7 +125,7 @@ DISCORD.prototype.sendMessage = function({ serverId, channelId, categoryId = nul
 
 	let mIdx = channelPath.messages.push({
 		author: userId,
-		message: `${message}`,
+		message: `${this.escapeHtml(message)}`,
 		date: new Date(),
 	}) - 1;
 
@@ -319,6 +319,10 @@ DISCORD.prototype.toggleProfileMic = function() {
 DISCORD.prototype.toggleProfileHeadset = function() {
 	this.profile.headset = !this.profile.headset;
 	document.querySelector('.profile-headset .material-icons').innerHTML = this.profile.headset ? 'headset': 'headset_off';
+};
+
+DISCORD.prototype.escapeHtml = function escapeHtml(e) {
+	return e.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 };
 
 DISCORD.prototype.init = function() {
