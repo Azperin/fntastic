@@ -1,5 +1,6 @@
 const DISCORD = function() {
 	this.windowElements = {};
+	this.userSearchString = '';
 	this.profile = {
 		userId: '',
 		currentServerId: '',
@@ -134,6 +135,11 @@ DISCORD.prototype.sendMessage = function({ serverId, channelId, categoryId = nul
 	};
 };
 
+DISCORD.prototype.searchUser = function(str) {
+	this.userSearchString = str;
+	this.renderUsers();
+};
+
 DISCORD.prototype.switchServer = function(serverId) {
 	if (this.profile.currentServerId === serverId) return;
 	if (!this.servers.hasOwnProperty(serverId)) return;
@@ -216,6 +222,10 @@ DISCORD.prototype.renderUsers = function() {
 	let online = [];
 	let usersHtml = '';
 	Object.entries(this.users).forEach(([userId, user]) => {
+		if (this.userSearchString) {
+			if (!user.name.toLowerCase().includes(this.userSearchString)) return;
+		};
+
 		if (user.status !== 'offline') {
 			let shouldUserGetRole = (Math.random() * 10) < 3;
 			if (shouldUserGetRole) {

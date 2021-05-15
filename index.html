@@ -116,6 +116,16 @@
 				if (e.target.dataset.profileheadset) return DiscordApp.toggleProfileHeadset();
 			});
 
+			// поиск юзера
+			let searchDebouncer;
+			document.querySelector('.searchBar').addEventListener('input', (e) => {
+				clearTimeout(searchDebouncer);
+				searchDebouncer = setTimeout(() => {
+					DiscordApp.searchUser(e.target.value.trim().toLowerCase());
+				}, 500);
+			});
+			
+
 			// toolbar buttons
 			try {
 				let { ipcRenderer } = require('electron');
