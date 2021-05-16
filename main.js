@@ -16,7 +16,7 @@ function createWindow () {
 
 	mainWindow.maximize();
 	mainWindow.loadFile('index.html');
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 
 	ipcMain.on('closeApp', () => {
 		mainWindow.close();
