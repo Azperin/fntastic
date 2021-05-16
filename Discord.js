@@ -187,9 +187,11 @@ DISCORD.prototype.switchChannel = function(channelId, categoryId) {
 	this.profile.currentChannelId = channelId;
 	// if (!this.servers[serverId].channels.hasOwnProperty)
 	let messagesHtml = '';
-	channel.messages.forEach(message => {
-		messagesHtml += this.channelMessagesHTML(message);
-	});
+	let len = channel.messages.length;
+
+	while(len--) {
+		messagesHtml += this.channelMessagesHTML(channel.messages[len]);
+	};
 
 	this.windowElements['messages'].innerHTML = messagesHtml;
 	document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
