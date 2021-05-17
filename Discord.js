@@ -331,9 +331,10 @@ DISCORD.prototype.init = function() {
 	// лучше бы по ИДшникам придумать
 	this.windowElements['servers'] = document.querySelector('.sidebar .servers-list');
 	this.windowElements['channels'] = document.querySelector('.channels');
-	this.windowElements['messages'] = document.querySelector('.chat-messages');
+	this.windowElements['messages'] = document.querySelector('.chat-messages-container');
 	this.windowElements['profilePanel'] = document.querySelector('.profile-panel');
 	this.windowElements['users'] = document.querySelector('.users-list');
+	this.windowElements['chatTextInput'] = document.getElementById('chat-textarea');
 };
 
 

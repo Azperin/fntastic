@@ -14,11 +14,11 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	grid-template-areas: 
-		'toolbar toolbar toolbar toolbar toolbar'
-		'sidebar server-panel channel-title channel-title channel-title'
-		'sidebar channels chat-messages chat-messages users-list'
-		'sidebar profile-panel chat-inputs chat-inputs users-list';
-	grid-template-columns: 80px 300px 1fr 200px 350px;
+		'toolbar toolbar toolbar toolbar'
+		'sidebar server-panel channel-title channel-title'
+		'sidebar channels chat-messages users-list'
+		'sidebar profile-panel chat-messages users-list';
+	grid-template-columns: 80px 300px 1fr 350px;
 	grid-template-rows: 30px 70px 1fr 90px;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
 	--sides-bg-color: rgba(20, 24, 51, 0.5);
@@ -133,31 +133,10 @@ button.btn {
 .chat-messages {
 	grid-area: chat-messages;
 	background-color: var(--main-bg-color);
-	overflow-y: scroll;
+	overflow-y: hidden;
 	padding: 10px;
 	display: flex;
 	flex-direction: column-reverse;
-	height: 100%;
-}
-
-.chat-messages:after {
-	content: ' ';
-	height: 200vh;
-}
-
-.chat-messages::-webkit-scrollbar {
-	width: 8px;
-	height: 10px;
-	background-color: var(--main-bg-color);
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-	background-color: rgb(192, 190, 190);
-}
-
-.chat-inputs {
-	grid-area: chat-inputs;
-	background-color: var(--main-bg-color);
 }
 
 .users-list {
@@ -505,6 +484,28 @@ button.btn {
 	color: rgb(145, 145, 145);
 }
 
+.chat-messages-container {
+	display: flex;
+	overflow-y: scroll;
+	flex-direction: column-reverse;
+	height: 100%;
+}
+
+.chat-messages-container:after {
+	content: ' ';
+	height: 200vh;
+}
+
+.chat-messages-container::-webkit-scrollbar {
+	width: 8px;
+	height: 10px;
+	background-color: var(--main-bg-color);
+}
+
+.chat-messages-container::-webkit-scrollbar-thumb {
+	background-color: rgb(192, 190, 190);
+}
+
 .chat-inputs > .input-wrapper {
 	display: flex;
 	align-items: center;
@@ -545,7 +546,7 @@ button.btn {
 	border-left: 1px solid rgb(163, 163, 163);
 }
 
-.chat-messages .message {
+.chat-messages-container .message {
 	width: 100%;
 	padding: 10px;
 	margin: 5px 0 10px;
@@ -553,13 +554,13 @@ button.btn {
 	color: #fff;
 }
 
-.message .message-info {
+.chat-messages-container .message .message-info {
 	display: flex;
 	flex-wrap: wrap;
 	overflow: hidden;
 }
 
-.chat-messages .message .author-avatar {
+.chat-messages-container .message .author-avatar {
 	min-width: 40px;
 	width: 40px;
 	height: 40px;
@@ -570,17 +571,17 @@ button.btn {
 	margin-right: 20px;
 }
 
-.chat-messages .message .author-name {
+.chat-messages-container .message .author-name {
 	font-size: 1.4em;
 }
 
-.chat-messages .message .message-date {
+.chat-messages-container .message .message-date {
 	margin-left: 12px;
 	font-size: .8em;
 	color:rgb(100, 100, 100);
 }
 
-.chat-messages .message .message-info .message-body {
+.chat-messages-container .message .message-info .message-body {
 	margin-top: 6px;
 	white-space:pre-wrap;
 	overflow-wrap: break-word;

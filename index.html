@@ -48,15 +48,17 @@
 					<div><button class="btn"><span class="material-icons">help</span></button></div>
 				</div>
 			</div>
-			<div class="chat-messages"></div>
-			<div class="chat-inputs">
-				<div class="input-wrapper">
-					<button class="btn input-attachment-btn"><span class="material-icons">add_circle</span></button>
-					<textarea id="chat-textarea" class="noscrollbar" placeholder="Message #welcome"></textarea>
-					<button class="btn"><span class="material-icons">card_giftcard</span></button>
-					<button class="btn"><span class="material-icons">gif</span></button>
-					<button class="btn"><span class="material-icons">sentiment_satisfied</span></button>
+			<div class="chat-messages">
+				<div class="chat-inputs">
+					<div class="input-wrapper">
+						<button class="btn input-attachment-btn"><span class="material-icons">add_circle</span></button>
+						<textarea id="chat-textarea" class="noscrollbar" placeholder="Message #welcome"></textarea>
+						<button class="btn"><span class="material-icons">card_giftcard</span></button>
+						<button class="btn"><span class="material-icons">gif</span></button>
+						<button class="btn"><span class="material-icons">sentiment_satisfied</span></button>
+					</div>
 				</div>
+				<div class="chat-messages-container"></div>
 			</div>
 			<div class="users-list noscrollbar"></div>
 		</div>
@@ -97,18 +99,28 @@
 			document.querySelector('.modal-user-card').addEventListener('click', (e) => {
 				if (e.target === userCardBodyElement) return;
 				e.target.style.display = 'none';
-			})
-
-			document.getElementById('chat-textarea').addEventListener('input', (e) => {
-				// пока что однострочные сообщения, в хроме обработка инпуттайпа странная
-				if (!e.data && e.inputType !== 'deleteContentBackward') {
+			});
+			
+			DiscordApp.windowElements['chatTextInput'].addEventListener('keydown', (e) => {
+				if (e.keyCode === 13 && !e.shiftKey) {
 					let msg = e.target.value.trim();
 					if (msg) {
 						DiscordApp.sendMessage({ message: e.target.value });
+						e.preventDefault();
+						e.target.value = '';
+						adjustTextarea();
 					};
-					e.target.value = '';
 				};
 			});
+
+			DiscordApp.windowElements['chatTextInput'].addEventListener('input', (e) => {
+				adjustTextarea();
+			});
+
+			function adjustTextarea() {
+				let len = DiscordApp.windowElements['chatTextInput'].value.split('\n').length;
+				DiscordApp.windowElements['chatTextInput'].style.height = `${27 * len}px`;
+			};
 
 			document.querySelector('.profile-panel').addEventListener('click', (e) => {
 				if (e.target.dataset.profilemic) return DiscordApp.toggleProfileMic();
