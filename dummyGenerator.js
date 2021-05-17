@@ -14,11 +14,11 @@
 
 	// Создаем рандомных юзеров
 	let userNames = Array(Math.floor(20 + Math.random() * 150)).fill('').map(x => {
-		return randomName(3, 20);
+		return randomText(3, 20);
 	}).sort((a,b) => a.localeCompare(b, 'en', {'sensitivity': 'base'}));
 
 	userNames.forEach((username) => {
-		let subtext = randomName(0, 13);
+		let subtext = randomText(0, 13);
 		let isBot = (Math.random() * 100 < 10);
 		let status = userStatuses[Math.floor(Math.random() * userStatuses.length)];
 		let userId = DiscordApp.createUser({ name: username, bot: isBot, subtext: subtext, status: status,  });
@@ -29,7 +29,7 @@
 	let serversAmount = Math.floor(3 + Math.random() * 7);
 
 	while(serversAmount--) {
-		let serverName = randomName(2, 20);
+		let serverName = randomText(2, 20);
 		let server = {
 			ownerId: '1',
 			serverName: serverName,
@@ -46,7 +46,7 @@
 		// создаем роли
 		let rolesAmount = 1 + (Math.floor(Math.random() * 4));
 		while(rolesAmount--) {
-			let roleName = randomName(2, 8);
+			let roleName = randomText(2, 8);
 			let color = Math.floor(Math.random()*16777215).toString(16);
 			let role = {
 				serverId: serverId,
@@ -62,7 +62,7 @@
 		while(channelsAmount--) {
 			let shouldCreateCategory = (Math.random() * 20) < 5;
 			if (shouldCreateCategory) {
-				let categoryName = randomName(4, 15);
+				let categoryName = randomText(4, 15);
 				let categoryId = DiscordApp.createChannelCategory({ serverId, categoryName });
 				let amounChannelsInCategory = Math.floor(2 + Math.random() * 7);
 				while(amounChannelsInCategory--) {
@@ -75,17 +75,17 @@
 	
 	DiscordApp.switchServer('1');
 
-	function randomName(min, max) {
+	function randomText(min, max) {
 		let len = Math.floor(min + Math.random() * max);
 		if (len === 0) return '';
 		return Array(len).fill('').reduce((x) => {
 			return x += symbols[Math.floor(Math.random() * symLen)]
-		});
+		}, '');
 	};
 
 	function createTextChannel(serverId, categoryId) {
-		let channelName = randomName(3, 20);
-		let channelDescription = randomName(0, 20)
+		let channelName = randomText(3, 20);
+		let channelDescription = randomText(0, 20)
 		let channel = {
 			serverId: serverId,
 			channelName: channelName,
@@ -96,7 +96,7 @@
 		// Генерируем какие-нибудь сообщения в этот канал
 		let messagesAmount = Math.floor(Math.random() * 50);
 		while(messagesAmount--) {
-			let message = randomName(5, 500)
+			let message = randomText(5, 500)
 			let userId = usersIds[Math.floor(Math.random() * usersIds.length)];
 			DiscordApp.sendMessage({ serverId, channelId, userId, message, categoryId });
 		};
