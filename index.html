@@ -103,13 +103,13 @@
 			
 			DiscordApp.windowElements['chatTextInput'].addEventListener('keydown', (e) => {
 				if (e.keyCode === 13 && !e.shiftKey) {
+					e.preventDefault();
 					let msg = e.target.value.trim();
 					if (msg) {
 						DiscordApp.sendMessage({ message: e.target.value });
-						e.preventDefault();
 						e.target.value = '';
-						adjustTextarea();
 					};
+					adjustTextarea();
 				};
 			});
 
