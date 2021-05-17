@@ -554,6 +554,26 @@ button.btn {
 	margin: 5px 0 10px;
 	display: flex;
 	color: #fff;
+	position: relative;
+}
+
+.chat-messages-container .message .message-delete {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	display: none;
+}
+
+.chat-messages-container .message .message-delete .material-icons {
+	color: red;
+	pointer-events: none;
+	border-radius: 4px;
+	padding: 3px;
+	background-color: rgba(255, 133, 133, 0.274);
+}
+
+.chat-messages-container .message:hover .message-delete {
+	display: block;
 }
 
 .chat-messages-container .message .message-info {

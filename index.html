@@ -82,7 +82,14 @@
 
 			let userCardBodyElement = document.querySelector('.modal-user-card-body');
 			document.querySelector('.users-list').addEventListener('click', showUserCard);
-			document.querySelector('.chat-messages-container').addEventListener('click', showUserCard);
+			document.querySelector('.chat-messages-container').addEventListener('click', (e) => {
+				let messageIdx = e.target.dataset.messageidx;
+				if (messageIdx) {
+					DiscordApp.deleteMessage(messageIdx);
+				} else {
+					showUserCard(e);
+				};
+			});
 
 			function showUserCard(e) {
 				let userId = e.target.dataset.userid;

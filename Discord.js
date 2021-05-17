@@ -5,6 +5,7 @@ const DISCORD = function() {
 		userId: '',
 		currentServerId: '',
 		currentChannelId: '',
+		currentCategoryId: '',
 		mic: true,
 		headset: true,
 	};
@@ -130,9 +131,28 @@ DISCORD.prototype.sendMessage = function({ serverId, channelId, categoryId = nul
 	}) - 1;
 
 	if (channelId === this.profile.currentChannelId) {
-		let messageHtml = this.channelMessagesHTML(this.servers[serverId].channels[channelId].messages[mIdx]);
+		let messageHtml = this.channelMessagesHTML(this.servers[serverId].channels[channelId].messages[mIdx], mIdx);
 		this.windowElements['messages'].insertAdjacentHTML('afterbegin', messageHtml);
 	};
+};
+
+DISCORD.prototype.deleteMessage = function(messageIdx) {
+	let serverId = this.profile.currentServerId;
+	let channelId = this.profile.currentChannelId;
+	let categoryId = this.profile.currentCategoryId;
+	let channel;
+
+	if (categoryId) {
+		channel = this.servers[serverId].channels[categoryId]?.channels[channelId];
+	} else {
+		channel = this.servers[serverId].channels[channelId];
+	};
+	if (!channel) return;
+	if (!channel.messages[messageIdx]) return;
+
+	channel.messages.splice(messageIdx, 1);
+
+	this.renderChannelMessages(channel);
 };
 
 DISCORD.prototype.searchUser = function(str) {
@@ -185,21 +205,25 @@ DISCORD.prototype.switchChannel = function(channelId, categoryId) {
 	};
 	if (!channel) return;
 	this.profile.currentChannelId = channelId;
-	// if (!this.servers[serverId].channels.hasOwnProperty)
-	let messagesHtml = '';
-	let len = channel.messages.length;
+	this.profile.currentCategoryId = categoryId;
 
-	while(len--) {
-		messagesHtml += this.channelMessagesHTML(channel.messages[len]);
-	};
+	this.renderChannelMessages(channel);
 
-	this.windowElements['messages'].innerHTML = messagesHtml;
 	document.querySelectorAll('.channels .channel').forEach(el => el.classList.remove('active'));
 	let channelElement = document.querySelector(`.channel[data-channelid="${channelId}"]`);
 	channelElement.classList.add('active');
 	channelElement.classList.remove('hasnewcontent');
 	document.querySelector('.channel-title .channel-name').innerHTML = `<div class="channel-name">${channel.name}<div class="channel-description">${channel.description}</div></div>`;
 	
+};
+
+DISCORD.prototype.renderChannelMessages = function(channel) {
+	let messagesHtml = '';
+	let len = channel.messages.length;
+	while(len--) {
+		messagesHtml += this.channelMessagesHTML(channel.messages[len], len);
+	};
+	this.windowElements['messages'].innerHTML = messagesHtml;
 };
 
 DISCORD.prototype.renderUserPanel = function() {
@@ -269,7 +293,7 @@ DISCORD.prototype.renderUsers = function() {
 	this.windowElements['users'].innerHTML = usersHtml;
 };
 
-DISCORD.prototype.channelMessagesHTML = function(message) {
+DISCORD.prototype.channelMessagesHTML = function(message, messageIdx) {
 	let author = this.users[message.author];
 	let userRole = this.servers[this.profile.currentServerId].users[message.author].role;
 	let userColor = '';
@@ -278,6 +302,7 @@ DISCORD.prototype.channelMessagesHTML = function(message) {
 	};
 
 	return `<div class="message">
+				<button data-messageidx="${ messageIdx }" class="btn message-delete"><span class="material-icons">delete</span></button>
 				<div class="author-avatar" style="background-image: url(${author.avatarUrl});"></div>
 					<div class="message-info">
 						<div class="author-name" data-userid="${ author.id }" style="color: #${userColor}">${ author.name }<span class="message-date">${ message.date }</span></div>
