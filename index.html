@@ -96,10 +96,11 @@
 				if (!userId) return;
 				document.querySelector('.modal-user-card').style.display = 'block';
 				let offsetTop = e.y;
+				let offsetLeft = e.x;
 				if ((offsetTop + 420) > window.innerHeight) {
 					offsetTop = window.innerHeight - 420;
 				};
-				userCardBodyElement.style.left = `${ e.target.offsetLeft - 300 }px`;
+				userCardBodyElement.style.left = `${ offsetLeft - 350 }px`;
 				userCardBodyElement.style.top = `${ offsetTop }px`;
 				userCardBodyElement.innerHTML = `<div><div class="user-card-avatar" style="background-image: url(${ DiscordApp.users[userId].avatarUrl })"></div></div>
 					<div class="user-card-name">${ DiscordApp.users[userId].name }</div>
