@@ -81,7 +81,10 @@
 			});
 
 			let userCardBodyElement = document.querySelector('.modal-user-card-body');
-			document.querySelector('.users-list').addEventListener('click', (e) => {
+			document.querySelector('.users-list').addEventListener('click', showUserCard);
+			document.querySelector('.chat-messages-container').addEventListener('click', showUserCard);
+
+			function showUserCard(e) {
 				let userId = e.target.dataset.userid;
 				if (!userId) return;
 				document.querySelector('.modal-user-card').style.display = 'block';
@@ -94,7 +97,7 @@
 				userCardBodyElement.innerHTML = `<div><div class="user-card-avatar" style="background-image: url(${ DiscordApp.users[userId].avatarUrl })"></div></div>
 					<div class="user-card-name">${ DiscordApp.users[userId].name }</div>
 					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>`;
-			});
+			};
 
 			document.querySelector('.modal-user-card').addEventListener('click', (e) => {
 				if (e.target === userCardBodyElement) return;
@@ -104,7 +107,6 @@
 			document.querySelector('.toggle-users-list').addEventListener('click', (e) => {
 				let currentWidth = DiscordApp.windowElements['users'].style.width ?? '350px';
 				DiscordApp.windowElements['users'].style.width = currentWidth === '0px' ? '350px' : '0px';
-
 			});
 			
 			DiscordApp.windowElements['chatTextInput'].addEventListener('keydown', (e) => {

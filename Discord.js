@@ -271,7 +271,6 @@ DISCORD.prototype.renderUsers = function() {
 
 DISCORD.prototype.channelMessagesHTML = function(message) {
 	let author = this.users[message.author];
-
 	let userRole = this.servers[this.profile.currentServerId].users[message.author].role;
 	let userColor = '';
 	if (userRole) {
@@ -281,7 +280,7 @@ DISCORD.prototype.channelMessagesHTML = function(message) {
 	return `<div class="message">
 				<div class="author-avatar" style="background-image: url(${author.avatarUrl});"></div>
 					<div class="message-info">
-						<div class="author-name" style="color: #${userColor}">${ author.name }<span class="message-date">${ message.date }</span></div>
+						<div class="author-name" data-userid="${ author.id }" style="color: #${userColor}">${ author.name }<span class="message-date">${ message.date }</span></div>
 						<div class="message-body">${message.message}</div>
 					</div>
 				</div>`;

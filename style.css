@@ -575,6 +575,7 @@ button.btn {
 
 .chat-messages-container .message .author-name {
 	font-size: 1.4em;
+	cursor: pointer;
 }
 
 .chat-messages-container .message .message-date {
