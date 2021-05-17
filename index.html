@@ -42,7 +42,7 @@
 				<div class="channel-utils">
 					<div><button class="btn"><span class="material-icons">notifications</span></button></div>
 					<div><button class="btn"><span class="material-icons">push_pin</span></button></div>
-					<div><button class="btn"><span class="material-icons">people</span></button></div>
+					<div><button class="btn toggle-users-list"><span class="material-icons">people</span></button></div>
 					<div class="searchBar"><input type="text" placeholder="Search" /><span class="material-icons">search</span></div>
 					<div><button class="btn"><span class="material-icons">alternate_email</span></button></div>
 					<div><button class="btn"><span class="material-icons">help</span></button></div>
@@ -99,6 +99,12 @@
 			document.querySelector('.modal-user-card').addEventListener('click', (e) => {
 				if (e.target === userCardBodyElement) return;
 				e.target.style.display = 'none';
+			});
+
+			document.querySelector('.toggle-users-list').addEventListener('click', (e) => {
+				let currentWidth = DiscordApp.windowElements['users'].style.width ?? '350px';
+				DiscordApp.windowElements['users'].style.width = currentWidth === '0px' ? '350px' : '0px';
+
 			});
 			
 			DiscordApp.windowElements['chatTextInput'].addEventListener('keydown', (e) => {

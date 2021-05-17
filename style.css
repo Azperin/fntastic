@@ -18,7 +18,7 @@
 		'sidebar server-panel channel-title channel-title'
 		'sidebar channels chat-messages users-list'
 		'sidebar profile-panel chat-messages users-list';
-	grid-template-columns: 80px 300px 1fr 350px;
+	grid-template-columns: 80px 300px (100%, 1fr);
 	grid-template-rows: 30px 70px 1fr 90px;
 	--main-bg-color: rgba(34, 36, 48, 0.867);
 	--sides-bg-color: rgba(20, 24, 51, 0.5);
